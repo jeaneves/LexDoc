@@ -1,0 +1,13 @@
+Database lexdoc 
+CREATE SEQUENCE gen_usuarios;
+
+CREATE TABLE usuarios (
+    id              INTEGER PRIMARY KEY DEFAULT nextval('gen_usuarios'),
+    usuario    VARCHAR(30) NOT NULL,       -- Nome de usuário (substitui 'user')
+    senha           VARCHAR(60) NOT NULL,        -- Senha
+    ativo           CHAR(1) DEFAULT 'S',         -- Indica se usuário está ativo (S/N)
+    administrador   CHAR(1) DEFAULT 'N',         -- Indica se é admin (S/N)
+    data_bloqueio   DATE,                        -- Data de bloqueio do usuário
+    id_funcionario  INTEGER,                     -- ID do funcionário associado
+    data_criacao    DATE                         -- Data de criação do registro
+);
