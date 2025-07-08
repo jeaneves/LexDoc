@@ -40,25 +40,24 @@ Este projeto foi desenvolvido com as seguintes tecnologias:
 ```bash
 git clone https://github.com/jeaneves/LexDoc.git
 cd lexDoc
-
-
-### Instale as dependências
+```
+## Instale as dependências
 npm install
 
 ### Rode o projeto
 npm run dev
 
 ### Estrutura de pastas
-LexDoc/
-└── backend/
-    └── src/          
-       ├── config/
-       ├── controller/
-       ├── middleware/
-       ├── routes/
-       ├── services/
-       ├── sql/
+LexDoc /
+└── backend /
+    └── src /          
+       ├── config /
+       ├── controller /
+       ├── middleware /
+       ├── routes /
+       ├── services /
+       ├── sql /
        └── types
 └── frontend/
 
-### Feito por Jean Neves
+# Feito por Jean Neves
