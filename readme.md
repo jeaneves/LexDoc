@@ -1,6 +1,6 @@
 # 📘 LexDoc
 
-Breve descrição do seu projeto, explicando o que ele faz e seu propósito principal.
+Sistema de gestão desenvolvido especialmente para escritórios de advocacia, com o objetivo de centralizar e automatizar as rotinas jurídicas e administrativas. A plataforma oferece funcionalidades completas para o cadastro e gerenciamento de clientes, controle financeiro, emissão de relatórios personalizados e diversas outras ferramentas que otimizam o dia a dia dos advogados e suas equipes. Com uma interface intuitiva e responsiva, o sistema garante organização, eficiência e segurança nas operações do escritório.
 
 ## 📸 Demonstração
 
