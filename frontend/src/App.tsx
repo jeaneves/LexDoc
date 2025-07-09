@@ -1,12 +1,5 @@
-import './App.css'
-import AppRoutes from './Routes'
+import AppRoutes from './Routes'; // ou seu arquivo de rotas
 
-function App() {
-  
-
-  return (
-    <AppRoutes />
-  );
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App

@@ -10,7 +10,20 @@ import { testConnection } from './config/db';
 dotenv.config();
 
 const app = express();
-app.use(cors({origin: 'http://localhost:5173'}));
+
+// Permitir múltiplas origens
+const allowedOrigins = ['http://localhost:5173', 'http://192.168.1.42:5173'];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  credentials: true // se estiver usando cookies/autenticação
+}));
 
 app.use(express.json());
 
