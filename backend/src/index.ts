@@ -12,7 +12,12 @@ dotenv.config();
 const app = express();
 
 // Permitir múltiplas origens
-const allowedOrigins = ['http://localhost:5173', 'http://192.168.1.42:5173'];
+const allowedOrigins = [
+  'http://localhost:5173',   // Adicionado: Versão HTTP para localhost
+  'https://localhost:5173',
+  'http://192.168.1.42:5173', // Adicionado: Versão HTTP para IP local
+  'https://192.168.1.42:5173'
+];
 
 app.use(cors({
   origin: function (origin, callback) {

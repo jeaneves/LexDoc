@@ -27,6 +27,7 @@ export default function Login(){
       localStorage.setItem('token', data.token); //Armazena o token no localStorage
       navigate('/'); //Redireciona para a página inicial
     } catch (error) {
+      console.error('Erro ao fazer login:', error);
       setErro('Usuário ou senha inválidos');
     } finally {
     setLoading(false);
@@ -36,7 +37,7 @@ export default function Login(){
   
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gradient-to-r from-blue-600 ... to-blue-200">
+    <div className="h-screen flex justify-center items-center bg-gradient-to-br from-green-600 ... to-blue-200">
 
       <div className="w-full max-w-xs ">
         <div>
