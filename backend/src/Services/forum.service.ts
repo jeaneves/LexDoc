@@ -89,7 +89,7 @@ export async function deletaForum(id: number) {
         throw new Error("Fórum não encontrado");
     }
 
-    // Deleta o fórum
+    // Deleta fórum
     await db.query(delForum, [id]);   
     return { message: "Fórum deletado com sucesso" };
 }
