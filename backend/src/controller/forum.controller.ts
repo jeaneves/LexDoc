@@ -35,7 +35,11 @@ export default class ForumController {
 
     static async listaForums(req: Request, res: Response) {
         try {
-            const forums = await ForumService.listaForums();
+            const pagina = parseInt(req.query.pagina as string) || 1;
+            const limite = parseInt(req.query.limite as string) || 10;
+            const nome   = (req.query.nome as string) || "";
+
+            const forums = await ForumService.listaForums({pagina,limite,nome});
             res.status(200).json({
                 message: 'Lista de fóruns',
                 forums: forums

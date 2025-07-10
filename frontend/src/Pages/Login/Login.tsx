@@ -1,5 +1,5 @@
 import { Button } from "../../Components/Button";
-import { Input } from "../../Components/Inputs";
+import { Input } from "../../Components/Inputs/Inputs";
 import { FaUser } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";

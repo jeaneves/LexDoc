@@ -1,6 +1,7 @@
+import { off } from "process";
 import { db } from "../config/db";
 import { buscaForum, buscaForumID, buscaForumS, delForum, insertForum, updateForum } from "../sql/forumSQL";
-import { Forum } from "../types/forum";
+import { Forum, FiltroForum } from "../types/forum/forum";
 
 // cadastraForum: Cadastra um novo fórum
 export async function cadastraForum(data: Forum) {
@@ -76,10 +77,45 @@ export async function alteraForum(id:number, data: Forum) {
 }
 
 // Busca todos os fóruns cadastrados
-export async function listaForums() {
-    const result = await db.query(buscaForumS); // Passa null para buscar todos os fóruns
-    return result.rows;
+// export async function listaForums() {
+//     const result = await db.query(buscaForumS); // Passa null para buscar todos os fóruns
+//     return result.rows;
+// }
+
+export async function listaForums({pagina,limite,nome}:FiltroForum){
+    const offset = (pagina - 1) * limite;
+    const filtros: string[] = [];
+    const valores: any[] = [];
+
+    if (nome){
+        valores.push(`%${nome}%`);
+        filtros.push(`NOME_FORUM  ILIKE $${valores.length}`)
+    }
+
+    const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}`:'';
+
+    const forumQuery = ` SELECT * FROM forum
+                         ${whereClause}
+                         ORDER BY nome_forum
+                         LIMIT $${valores.length + 1}
+                         OFFSET $${valores.length + 2}`;
+    
+    valores.push(limite,offset)
+
+    const result = await db.query(forumQuery,valores);
+
+    const totalQuery = `SELECT COUNT(*) FROM forum ${whereClause}`;
+    const totalResult = await db.query(totalQuery,valores.slice(0, -2));
+    const totalRegistros = parseInt(totalResult.rows[0].count,10);
+    const totalPaginas = Math.ceil(totalRegistros/limite);
+
+    return {
+        dados: result.rows,
+        totalPaginas,
+        totalRegistros
+    };
 }
+
 
 // deletaForum: Deleta um fórum pelo ID
 export async function deletaForum(id: number) {
