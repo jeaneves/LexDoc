@@ -10,3 +10,9 @@ export interface Forum{
     EMAIL_FORUM      :varchar,
     OBSERVACAO       :varchar
 }
+
+export interface FiltroForum{
+    pagina: number,
+    limite: number,
+    nome?: string
+}
