@@ -1,16 +1,16 @@
 import {create} from 'zustand';
 
 interface Forum{
-    ID               :number;
-    NOME_FORUM       :string;
-    RUA              :string;
-    BAIRRO           :string;
-    NUMERO           :number;
-    CEP              :string;
-    ID_CIDADE        :number;
-    TELEFONE_FORUM   :string;
-    EMAIL_FORUM      :string;
-    OBSERVACAO       :string;
+    id               :number;
+    nome_forum       :string;
+    rua              :string;
+    bairro           :string;
+    numero           :number;
+    cep              :string;
+    id_cidade        :number;
+    telefone_forum   :string;
+    email_forum      :string;
+    observacao       :string;
 }
 
 interface FilterForum {
@@ -35,44 +35,52 @@ export const useForumStore = create<ForumState>((set,get)=>({
     filter: { nomeForum: '' },
     isLoading:false,
 
-    buscarForum: async ()=>{
-        const {paginaAtual, filter} = get();
-        const token = localStorage.getItem('token');
-        console.log("Token usado:", token);
-        set({ isLoading: true });
+   buscarForum: async () => {
+  const { paginaAtual, filter } = get();
+  const token = localStorage.getItem('token');
+  set({ isLoading: true });
 
-        try {
-            const queryParams = new URLSearchParams({
-                pagina: paginaAtual.toString(),
-                limite: '10', // Defina o limite de resultados por página
-                nomeForum: filter.nomeForum
-            });
+  try {
+    const queryParams = new URLSearchParams({
+      pagina: paginaAtual.toString(),
+      limite: '10',
+    });
 
-            const response = await fetch(
-                `http://localhost:3000/forum/listaforums?${queryParams.toString()}`,
-                {
-                    headers:{
-                        'Content-Type': 'application/json',
-                        Authorization: `Bearer ${token}`
-                    },
-                }
-            );
-            if (!response.ok) {
-                throw new Error('Erro ao buscar fórum');
-            }
+    if (filter.nomeForum?.trim()) {
+      queryParams.append('nomeForum', filter.nomeForum.trim());
+    }
 
-            const result = await response.json();
-            console.log("Resultado da API:", result);
-            set({
-                forums: result.forums?.dados ,
-                totalPaginas: result.forums.totalPaginas,
-                isLoading: false 
-            });
-        } catch (error) {
-            console.error("Erro ao buscar fórum:", error);
-            throw error;
-        }
-    },
+    const url = `http://localhost:3000/forum/listaforums?${queryParams.toString()}`;
+    console.log("🔗 URL chamada:", url);
+
+    const response = await fetch(url, {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    const result = await response.json();
+    console.log("📦 Resposta da API:", result);
+
+    const forumsData = result?.forums?.dados ?? [];
+    const totalPaginas = result?.forums?.totalPaginas ?? 1;
+
+    if (!Array.isArray(forumsData)) {
+      throw new Error("Resposta inesperada da API: forums.dados não é array");
+    }
+
+    set({
+      forums: forumsData,
+      totalPaginas: totalPaginas,
+      isLoading: false,
+    });
+
+  } catch (error) {
+    console.error("❌ Erro ao buscar fórum:", error);
+    set({ forums: [], isLoading: false });
+  }
+},
     setPaginaAtual: (pagina: number) => {
         set({ paginaAtual: pagina });
     },

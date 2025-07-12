@@ -37,9 +37,9 @@ export default class ForumController {
         try {
             const pagina = parseInt(req.query.pagina as string) || 1;
             const limite = parseInt(req.query.limite as string) || 10;
-            const nome   = (req.query.nome as string) || "";
+            const nomeForum   = (req.query.nomeForum as string) || "";
 
-            const forums = await ForumService.listaForums({pagina,limite,nome});
+            const forums = await ForumService.listaForums({pagina,limite,nomeForum});
             res.status(200).json({
                 message: 'Lista de fóruns',
                 forums: forums
