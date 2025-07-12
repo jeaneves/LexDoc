@@ -1,5 +1,6 @@
 import {create} from 'zustand';
 
+const apiUrl = import.meta.env.VITE_API_URL;
 interface Forum{
     id               :number;
     nome_forum       :string;
@@ -50,8 +51,8 @@ export const useForumStore = create<ForumState>((set,get)=>({
       queryParams.append('nomeForum', filter.nomeForum.trim());
     }
 
-    const url = `http://localhost:3000/forum/listaforums?${queryParams.toString()}`;
-    console.log("🔗 URL chamada:", url);
+    const url = `${apiUrl}/forum/listaforums?${queryParams.toString()}`;
+    console.log("🔗 URL chamada:", apiUrl);
 
     const response = await fetch(url, {
       headers: {
@@ -78,7 +79,7 @@ export const useForumStore = create<ForumState>((set,get)=>({
 
   } catch (error) {
     console.error("❌ Erro ao buscar fórum:", error);
-    set({ forums: [], isLoading: false });
+    set({ forums: [], isLoading: false,});
   }
 },
     setPaginaAtual: (pagina: number) => {

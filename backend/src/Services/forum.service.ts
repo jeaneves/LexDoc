@@ -89,7 +89,7 @@ export async function listaForums({pagina, limite, nomeForum}: FiltroForum) {
 
     if (nomeForum) {
         valores.push(`%${nomeForum}%`);
-        filtros.push(`nome_forum LIKE $${valores.length}`); // valores.length = 1 => $1
+        filtros.push(`upper(nome_forum) LIKE upper($${valores.length})`); // valores.length = 1 => $1
     }
 
     const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}` : '';

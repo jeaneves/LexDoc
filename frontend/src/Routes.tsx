@@ -5,6 +5,7 @@ import PageBase from './Pages/PageBase/PageBase';
 import Dashboard from './Pages/Dashboard/Dashboard';
 import NotFoundPage from './Pages/Page404';
 import Forum  from './Pages/Forum/Forum';
+import ForumED from './Pages/Forum/ForumED';
 
 export default function AppRoutes(){
     return ( 
@@ -17,6 +18,7 @@ export default function AppRoutes(){
                     {/* Aqui você pode definir as rotas internas que serão renderizadas dentro do PageBase */}
                     <Route index element={<Dashboard/>} />
                     <Route path='forum' element={<Forum/>} />
+                    <Route path='forum/forumed' element={<ForumED/>}/>
 
                 </Route>
                 {/* Rota 404 */}

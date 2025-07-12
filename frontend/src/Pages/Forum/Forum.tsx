@@ -1,15 +1,18 @@
 import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "../../Components/Button";
 import { useForumStore } from "../../Store/useForumStore";
 import { TbHomeEdit } from "react-icons/tb";
 import { FaRegMinusSquare, FaRegPlusSquare, FaRegTrashAlt } from "react-icons/fa";
 
+
 export default function Forum() {
   const { isLoading } = useForumStore();
-  const [mostrarObs, setMostrarObs] = useState(false);
   const [itemExpandido, setItemExpandido] = useState<number | null>(null);
-
-
+  const navigate = useNavigate();
+  const handleCadastrar = () => {
+    navigate('/forum/forumed');
+  }
   
   const {
     forums,
@@ -44,9 +47,11 @@ export default function Forum() {
       {/* Título e botão de cadastro */}
       <div className="flex justify-between items-center flex-wrap mb-4">
         <h2 className="text-2xl font-bold text-gray-800">Fórum</h2>
-        <Button type="button" color="green">
-          Cadastrar
-        </Button>
+        
+          <Button type="button" color="green" onClick={handleCadastrar} >
+            Cadastrar
+          </Button>
+        
       </div>
       {/* Filtros */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
@@ -77,7 +82,7 @@ export default function Forum() {
               </tr>
             </thead>
             <tbody>
-              {(forums ?? []).map((item) => (
+              {forums.map((item) => (
                 <tr key={item.id} className="border-b">
                   <td className="py-5"><div className="font-semibold">{item.nome_forum}</div></td>
                   <td>{item.id_cidade}</td>
@@ -110,7 +115,7 @@ export default function Forum() {
       {/*Grid menor*/}
       <div className="h-3/4 grid lg:hidden grid-cols-1 md:grid-cols-2 p-5 gap-2 overflow-y-scroll text-xs lg:text-base">
         { (forums ?? []).map((item) => (
-          <div className="border rounded-lg flex items-center p-2 gap-2">
+          <div key={item.id} className="border rounded-lg flex items-center p-2 gap-2">
             <div className="w-3/4">
             <div className="font-semibold">{item.nome_forum} </div>
               <div className="font-semibold">{item.id_cidade}  </div>
@@ -169,7 +174,7 @@ export default function Forum() {
             Próxima
           </Button>
         </div>
-
+       
     </section>
   );
 }

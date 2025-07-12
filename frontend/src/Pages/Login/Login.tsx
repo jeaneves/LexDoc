@@ -48,7 +48,7 @@ export default function Login(){
             {/* <label className='block text-gray-700 text-sm font-bold mb-2'>Usuário</label> */}
             <div className="relative" >
               <FaUser className="absolute right-3 top-3 text-gray-400" />
-              <Input uppercase="uppercase" id="user" type="text" placeholder="Usuário" value={user} onChange={e => setUser(e.target.value.toUpperCase())}/>
+              <Input className="uppercase" id="user" type="text" placeholder="Usuário" value={user} onChange={e => setUser(e.target.value.toUpperCase())}/>
             </div>
             
           </div>
