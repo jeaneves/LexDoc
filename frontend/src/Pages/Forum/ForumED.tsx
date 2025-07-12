@@ -1,7 +1,6 @@
 import { Button } from "../../Components/Button";
 import { Input } from "../../Components/Inputs/Inputs";
 
-
 export default function ForumED() {
   return (
     <section>
