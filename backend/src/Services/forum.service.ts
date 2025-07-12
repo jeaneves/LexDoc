@@ -82,37 +82,44 @@ export async function alteraForum(id:number, data: Forum) {
 //     return result.rows;
 // }
 
-export async function listaForums({pagina,limite,nome}:FiltroForum){
+export async function listaForums({pagina, limite, nomeForum}: FiltroForum) {
     const offset = (pagina - 1) * limite;
     const filtros: string[] = [];
     const valores: any[] = [];
 
-    if (nome){
-        valores.push(`%${nome}%`);
-        filtros.push(`NOME_FORUM  ILIKE $${valores.length}`)
+    if (nomeForum) {
+        valores.push(`%${nomeForum}%`);
+        filtros.push(`nome_forum LIKE $${valores.length}`); // valores.length = 1 => $1
     }
 
-    const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}`:'';
+    const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}` : '';
 
-    const forumQuery = ` SELECT * FROM forum
-                         ${whereClause}
-                         ORDER BY nome_forum
-                         LIMIT $${valores.length + 1}
-                         OFFSET $${valores.length + 2}`;
-    
-    valores.push(limite,offset)
+    const forumQuery = `
+        SELECT * FROM forum
+        ${whereClause}
+        ORDER BY nome_forum
+        LIMIT $${valores.length + 1}
+        OFFSET $${valores.length + 2}
+    `;
 
-    const result = await db.query(forumQuery,valores);
+    valores.push(limite, offset);
+
+    console.log('SQL Query:', forumQuery);
+    console.log('nome:', nomeForum);
+    console.log('Valores:', valores);
+    console.log('where:', filtros.length);
+
+    const result = await db.query(forumQuery, valores);
 
     const totalQuery = `SELECT COUNT(*) FROM forum ${whereClause}`;
-    const totalResult = await db.query(totalQuery,valores.slice(0, -2));
-    const totalRegistros = parseInt(totalResult.rows[0].count,10);
-    const totalPaginas = Math.ceil(totalRegistros/limite);
+    const totalResult = await db.query(totalQuery, valores.slice(0, -2));
+    const totalRegistros = parseInt(totalResult.rows[0].count, 10);
+    const totalPaginas = Math.ceil(totalRegistros / limite);
 
     return {
         dados: result.rows,
         totalPaginas,
-        totalRegistros
+        totalRegistros,
     };
 }
 
