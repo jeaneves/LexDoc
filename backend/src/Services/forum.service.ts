@@ -1,6 +1,5 @@
-import { off } from "process";
 import { db } from "../config/db";
-import { buscaforum, buscaforumid, buscaforums, delforum, insertforum, updateforum } from "../sql/forumSQL";
+import { buscaforum, buscaforumid, delforum, insertforum, updateforum } from "../sql/forumSQL";
 import { Forum, FiltroForum } from "../types/forum/forum";
 
 // cadastraForum: Cadastra um novo fórum
@@ -18,7 +17,6 @@ export async function cadastraForum(data: Forum) {
     } = data;
 
     // Verifica se o fórum já existe
-    console.log([nome_forum])
     const existeForum = await db.query(buscaforum, [nome_forum]);
     if (existeForum.rows.length > 0) {
         throw new Error("fórum já cadastrado");
