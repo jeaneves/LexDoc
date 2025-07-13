@@ -1,7 +1,7 @@
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useSidebarStore } from "../Store/useSideBarStore";
 import { MdOutlineRuleFolder, MdOutlineSpaceDashboard } from "react-icons/md";
-import { FaBook, FaUserCog} from "react-icons/fa";
+import { FaBook, FaTasks, FaUserCog} from "react-icons/fa";
 import { useState } from "react";
 import { GiArchiveRegister } from "react-icons/gi";
 import { FaTreeCity } from "react-icons/fa6";
@@ -53,7 +53,7 @@ export default function Sidebar(){
       </div>
 
       <nav className="flex flex-col space-y-4 text-black">
-          <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início">
+          <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início" style={{ cursor: "pointer" }}>
                 <MdOutlineSpaceDashboard size={24} />
               {!collapsed && <span>Dashboard</span>}
           </a>
@@ -66,19 +66,19 @@ export default function Sidebar(){
             {/* Submenus visíveis somente se cadastrosOpen for true e menu não estiver colapsado */}
             {cadastrosOpen && (
               <div className={`mt-2 flex flex-col space-y-2 text-sm ${collapsed ? "ml-2" : "ml-6"}`}>
-                <a onClick={() => handleNavigation('/penitenciarias')} className="flex items-center gap-2 hover:text-blue-900">
+                <a onClick={() => handleNavigation('/penitenciarias')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <RiPoliceBadgeFill   size={13} />
                   {!collapsed && <span>Penitenciarias</span>}
                 </a>
-                <a onClick={() => handleNavigation('/cidades')}  className="flex items-center gap-2 hover:text-blue-900">
+                <a onClick={() => handleNavigation('/cidades')}  className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaTreeCity   size={13} />
                   {!collapsed && <span>Cidades</span>}
                 </a>
-                <a onClick={() => handleNavigation('/codigopenal')} className="flex items-center gap-2 hover:text-blue-900">
+                <a onClick={() => handleNavigation('/codigopenal')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <LuBookX   size={13} />
                   {!collapsed && <span>Código Penal</span>}
                 </a>
-                <a onClick={() => handleNavigation('/forum')} className="flex items-center gap-2 hover:text-blue-900">
+                <a onClick={() => handleNavigation('/forum')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <MdOutlineRuleFolder   size={13} />
                   {!collapsed && <span>Fórum</span>}
                 </a>
@@ -93,7 +93,7 @@ export default function Sidebar(){
                     <div className="flex-grow border-t border-gray-300"></div>
                   </div>
                 )}
-                <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2 hover:text-blue-900">
+                <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaUserCog size={13} />
                   {!collapsed && <span>Usuários</span>}
                 </a>
@@ -101,6 +101,10 @@ export default function Sidebar(){
               </div>
             )}
           </div>
+          <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início" style={{ cursor: "pointer" }}>
+                <FaTasks size={24} />
+              {!collapsed && <span>Tarefas</span>}
+          </a>
       </nav>
     </aside>
   );
