@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { Button } from "../../Components/Button";
 import { Input } from "../../Components/Inputs/Inputs";
 import { useNavigate, useParams } from "react-router-dom";
+import { TbArrowBack } from "react-icons/tb";
 
 interface ForumData{
   id?: number;
@@ -143,9 +144,14 @@ export default function ForumED({forumData}:ForumEDProps) {
 
   return (
     <section>
+      
       <div className="flex justify-between items-center flex-wrap mb-4">
-        <h2 className="text-2xl font-bold text-gray-800">Cadastro de Fórum</h2>
+        <h2 className="text-2xl font-bold text-gray-800">
+          <button className="relative shadow-md gap-2 rounded border-collapse bg-yellow-50 pr-2" onClick={() => navigate(-1)}><TbArrowBack /></button>
+              Cadastro de Fórum
+        </h2>
       </div>
+      
 
       <form className="bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
         <Input

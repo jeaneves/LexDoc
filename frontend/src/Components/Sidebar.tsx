@@ -1,15 +1,43 @@
 import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useSidebarStore } from "../Store/useSideBarStore";
-import { MdOutlineSpaceDashboard } from "react-icons/md";
-import { FaBook, FaTruck, FaUserCog} from "react-icons/fa";
+import { MdOutlineRuleFolder, MdOutlineSpaceDashboard } from "react-icons/md";
+import { FaBook, FaUserCog} from "react-icons/fa";
 import { useState } from "react";
 import { GiArchiveRegister } from "react-icons/gi";
-import { BsHouseGearFill } from "react-icons/bs";
+import { FaTreeCity } from "react-icons/fa6";
+import { LuBookX } from "react-icons/lu";
+import { RiPoliceBadgeFill } from "react-icons/ri";
+import { useNavigate } from 'react-router-dom';
+
 
 export default function Sidebar(){
   const collapsed = useSidebarStore((state) => state.collapsed);
   const toggleSidebar = useSidebarStore((state) => state.toggleSidebar);
   const [cadastrosOpen, setCadastrosOpen] = useState(false);
+  const navigate = useNavigate();
+
+  function isTokenValid(): boolean {
+    const token = localStorage.getItem('token');
+    if (!token) return false;
+
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.exp * 1000 > Date.now();
+    } catch {
+      return false;
+    }
+
+    
+  }
+
+  function handleNavigation(path: string) {
+    if (isTokenValid()) {
+      navigate(path);
+    } else {
+      localStorage.removeItem('token'); // limpa token inválido
+      navigate('/login');
+    }
+  }
 
   const handleToggleSidebar = () => {
       toggleSidebar();// Chama a função para alternar o estado da barra lateral do zustand
@@ -25,7 +53,7 @@ export default function Sidebar(){
       </div>
 
       <nav className="flex flex-col space-y-4 text-black">
-          <a href="/" className="flex items-center gap-2 hover:text-blue-900" title="Início">
+          <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início">
                 <MdOutlineSpaceDashboard size={24} />
               {!collapsed && <span>Dashboard</span>}
           </a>
@@ -37,16 +65,35 @@ export default function Sidebar(){
             </a>
             {/* Submenus visíveis somente se cadastrosOpen for true e menu não estiver colapsado */}
             {cadastrosOpen && (
-              <div className={`ml-${collapsed ? "2" : "6"} mt-2 flex flex-col space-y-2 text-sm`}>
-                <a href="/forum" className="flex items-center gap-2 hover:text-blue-900">
-                  <BsHouseGearFill  size={13} />
+              <div className={`mt-2 flex flex-col space-y-2 text-sm ${collapsed ? "ml-2" : "ml-6"}`}>
+                <a onClick={() => handleNavigation('/penitenciarias')} className="flex items-center gap-2 hover:text-blue-900">
+                  <RiPoliceBadgeFill   size={13} />
+                  {!collapsed && <span>Penitenciarias</span>}
+                </a>
+                <a onClick={() => handleNavigation('/cidades')}  className="flex items-center gap-2 hover:text-blue-900">
+                  <FaTreeCity   size={13} />
+                  {!collapsed && <span>Cidades</span>}
+                </a>
+                <a onClick={() => handleNavigation('/codigopenal')} className="flex items-center gap-2 hover:text-blue-900">
+                  <LuBookX   size={13} />
+                  {!collapsed && <span>Código Penal</span>}
+                </a>
+                <a onClick={() => handleNavigation('/forum')} className="flex items-center gap-2 hover:text-blue-900">
+                  <MdOutlineRuleFolder   size={13} />
                   {!collapsed && <span>Fórum</span>}
                 </a>
-                <a href="/fornecedores" className="flex items-center gap-2 hover:text-blue-900">
-                  <FaTruck size={13} />
-                  {!collapsed && <span>'--'</span>}
-                </a>
-                <a href="/usuarios" className="flex items-center gap-2 hover:text-blue-900">
+                {collapsed && (
+                  <div className="border-t border-gray-300 my-2"></div>  
+                )}
+                
+                {!collapsed && (
+                  <div className="flex items-center my-2 space-x-2">
+                    <div className="flex-grow border-t border-gray-300"></div>
+                    <span className="text-gray-500 text-xs uppercase">Segurança</span>
+                    <div className="flex-grow border-t border-gray-300"></div>
+                  </div>
+                )}
+                <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2 hover:text-blue-900">
                   <FaUserCog size={13} />
                   {!collapsed && <span>Usuários</span>}
                 </a>

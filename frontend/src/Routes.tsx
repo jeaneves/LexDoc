@@ -6,6 +6,7 @@ import Dashboard from './Pages/Dashboard/Dashboard';
 import NotFoundPage from './Pages/Page404';
 import Forum  from './Pages/Forum/Forum';
 import ForumED from './Pages/Forum/ForumED';
+import CodigoPenal from './Pages/CodigoPenal/CodigoPenal';
 
 export default function AppRoutes(){
     return ( 
@@ -20,6 +21,10 @@ export default function AppRoutes(){
                     <Route path='forum' element={<Forum/>} />
                     <Route path='forum/forumed' element={<ForumED/>}/>
                     <Route path='forum/forumed/:id' element={<ForumED/>}/>
+                    <Route path='codigopenal' element={<CodigoPenal/>}/>
+                    {/* <Route path='codigopenal/codigopenal' element={<CodigoPenalED/>}/>
+                    <Route path='codigopenal/codigopenal/:id' element={<ForumED/>}/> */}
+
 
                 </Route>
                 {/* Rota 404 */}
