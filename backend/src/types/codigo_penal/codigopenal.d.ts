@@ -6,3 +6,8 @@ export interface CodigoPenal{
 }
 
 //filtro
+export interface FiltroCP{
+    pagina: number,
+    limite: number,
+    nome?: string
+}
