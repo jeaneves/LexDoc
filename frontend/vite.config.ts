@@ -5,7 +5,8 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: '0.0.0.0' // Permite acesso de qualquer IP, incluindo o do seu celular
+    host: true,  // equivale a '0.0.0.0'
+    port: 5173,  // pode mudar se quiser outra porta
   }
   
 })

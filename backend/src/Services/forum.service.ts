@@ -55,7 +55,7 @@ export async function alteraForum(id_forum:number, data: Forum) {
     } = data;
 
     // Verifica se o fórum existe
-    const existeForum = await db.query(buscaforumid, [id]);
+    const existeForum = await db.query(buscaforumid, [id_forum]);
     if (existeForum.rows.length === 0) {
         throw new Error("Fórum não encontrado");
     }
@@ -76,11 +76,12 @@ export async function alteraForum(id_forum:number, data: Forum) {
     return result.rows[0];
 }
 
-// Busca todos os fóruns cadastrados
-// export async function listaForums() {
-//     const result = await db.query(buscaForumS); // Passa null para buscar todos os fóruns
-//     return result.rows;
-// }
+ 
+export async function listaforumid(id:number) {
+
+    const result = await db.query(buscaforumid,[id]); 
+    return result.rows;
+}
 
 export async function listaForums({pagina, limite, nomeForum}: FiltroForum) {
     const offset = (pagina - 1) * limite;

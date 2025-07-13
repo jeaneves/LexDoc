@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "../../Components/Button";
 import { Input } from "../../Components/Inputs/Inputs";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 interface ForumData{
   id?: number;
@@ -12,7 +12,7 @@ interface ForumData{
   cep: string;
   bairro: string;
   id_cidade: number ;
-  email: string;
+  email_forum: string;
   telefone_forum: string;
   observacao: string;
 }
@@ -23,23 +23,72 @@ interface ForumEDProps{
 
 export default function ForumED({forumData}:ForumEDProps) {
   const navigate = useNavigate();
+  const {id} = useParams<{id: string}>();
+
+  
+
   const [formData, setFormData] = useState <ForumData>({
+    id: undefined,
     nome_forum: "",
     rua:  "",
     numero: 0,
     cep: "",
     bairro: "",
     id_cidade: 0,
-    email: "",
+    email_forum: "",
     telefone_forum: "",
     observacao: "",
   });
 
-  useEffect(()=>{
-    if (forumData){
-      setFormData(forumData);
+  // useEffect(()=>{
+  //   if (forumData){
+  //     setFormData(forumData);
+  //   }
+  // },[forumData]);
+
+// Busca os dados se houver ID na URL
+   useEffect(() => {
+    if (id) {
+      const fetchForum = async () => {
+        try {
+          const token = localStorage.getItem("token");
+          const response = await fetch(
+            `${import.meta.env.VITE_API_URL}/forum/listaforum/${id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (!response.ok) throw new Error("Erro ao buscar fórum");
+
+          const json = await response.json();
+          const data = json.result?.[0];
+
+          if (!data) throw new Error("Fórum não encontrado");
+
+          setFormData({
+            id: data.id ?? undefined,
+            nome_forum: data.nome_forum ?? "",
+            rua: data.rua ?? "",
+            numero: data.numero ?? 0,
+            cep: data.cep ?? "",
+            bairro: data.bairro ?? "",
+            id_cidade: data.id_cidade ?? 0,
+            email_forum: data.email_forum ?? "",
+            telefone_forum: data.telefone_forum ?? "",
+            observacao: data.observacao ?? "",
+          });
+        } catch (error) {
+          console.error(error);
+          alert("Erro ao carregar os dados do fórum.");
+        }
+      };
+
+      fetchForum();
     }
-  },[forumData]);
+  }, [id]);
   
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement |HTMLTextAreaElement | HTMLSelectElement>
@@ -57,9 +106,10 @@ export default function ForumED({forumData}:ForumEDProps) {
     const token = localStorage.getItem("token");
 
     try {
-      const method = forumData?.id ? "PUT" : "POST";
-      const url = forumData?.id
-        ? `${import.meta.env.VITE_API_URL}/forum/cadastraforum/${forumData.id}`
+      const method = formData?.id ? "PUT" : "POST";
+      console.log(method)
+      const url = formData.id
+        ? `${import.meta.env.VITE_API_URL}/forum/alteraforum/${formData.id}`
         : `${import.meta.env.VITE_API_URL}/forum/cadastraforum`;
 
         const response = await fetch(url, {
@@ -72,7 +122,7 @@ export default function ForumED({forumData}:ForumEDProps) {
       });
 
       if (!response.ok) throw new Error("Erro ao salvar");
-      console.log("Enviando para API:", formData);
+      
 
       const data = await response.json();
       console.log('backend',data)
@@ -165,11 +215,11 @@ export default function ForumED({forumData}:ForumEDProps) {
         <div className="flex flex-col md:flex-row gap-4 py-1">
           <Input
             
-            name="email"
-            type="email"
+            name="email_forum"
+            type="email_forum"
             placeholder="Email"
             onChange={handleChange}
-            value={formData.email}
+            value={formData.email_forum}
             className="w-full md:w-8/12"
           />
           <Input
@@ -198,7 +248,7 @@ export default function ForumED({forumData}:ForumEDProps) {
           />
         </div>
         <div className="flex items-center justify-between mt-4 ">
-        <Button  type='submit' color="green" >  {forumData ? "Atualizar" : "Salvar"}</Button>  
+        <Button  type='submit' color="green" >  {formData.id ? "Atualizar" : "Salvar"}</Button>  
         </div>
       </form>
     </section>
