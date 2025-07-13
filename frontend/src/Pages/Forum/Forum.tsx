@@ -10,6 +10,8 @@ export default function Forum() {
   const { isLoading } = useForumStore();
   const [itemExpandido, setItemExpandido] = useState<number | null>(null);
   const navigate = useNavigate();
+ 
+
   const handleCadastrar = () => {
     navigate('/forum/forumed');
   }
@@ -28,6 +30,35 @@ export default function Forum() {
     buscarForum();
     console.log("Filtro atual:", filter.nomeForum);
   },[paginaAtual, filter.nomeForum]);
+
+
+   // Função para deletar fórum pelo id
+  const handleDelete = async (id: number) => {
+    console.log("Clicou para deletar o fórum com ID:", id); // <- log de clique
+    const confirmDelete = window.confirm("Tem certeza que deseja deletar este fórum?");
+    const token = localStorage.getItem("token");
+
+    if (!confirmDelete) return;
+
+    try {
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/forum/deletaforum/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+          // Adicione token se necessário, ex:
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error("Erro ao deletar o fórum");
+      }
+      alert("Fórum deletado com sucesso!");
+      buscarForum(); // Atualiza a lista após deletar
+    } catch (error: any) {
+      alert("Falha ao deletar fórum: " + error.message);
+    }
+  };
 
   const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
     setFilter({...filter, [e.target.name]: e.target.value});
@@ -92,16 +123,16 @@ export default function Forum() {
                   <td>
                     <div className="flex items-center gap-2"> {/* Adicionei flex e gap aqui */}
                       <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
-                          //  onClick={()=>()} // Adiciona o evento de clique
+                          onClick={() => navigate(`/forum/forumed/${item.id}`)} // Editar
                           style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                       >
                         <TbHomeEdit size={15}/> 
                       </div>
                       <div className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
-                          //  onClick={()=>()} // Adiciona o evento de clique
+                          onClick={() => handleDelete(item.id)}
                           style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                       >
-                        <FaRegTrashAlt size={15} />
+                        <FaRegTrashAlt size={15} data-tip="Clique aqui para deletar"/>
                       </div>                        
                     </div>
                   </td>
@@ -124,17 +155,18 @@ export default function Forum() {
                 <div className="font-medium">{item.telefone_forum}</div>                                                       
                   <div className="flex items-center gap-2"> {/* Adicionei flex e gap aqui */}
                     <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
-                      //  onClick={()=>()} // Adiciona o evento de clique
+                      onClick={() => navigate(`/forum/forumed/${item.id}`)} // Editar
                       style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                     >
                       <TbHomeEdit size={15}/> 
                     </div>
-                    <div className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
-                      //  onClick={()=>()} // Adiciona o evento de clique
-                      style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                    <div
+                      className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
+                      onClick={() => handleDelete(item.id)}
+                      style={{ cursor: "pointer" }}
                     >
-                      <FaRegTrashAlt size={15} />
-                    </div>                        
+                      <FaRegTrashAlt size={15} data-tip="Clique aqui para deletar" />
+                    </div>                       
                   </div>
                 </div>
                 {/* Botão para mostrar/ocultar observação */}

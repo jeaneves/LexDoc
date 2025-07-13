@@ -1,26 +1,26 @@
-export const buscaForum = `SELECT * 
-                           FROM forum 
-                           WHERE NOME_FORUM = $1
-                           ORDER BY NOME_FORUM`;
+export const buscaforum = `select * 
+                           from forum 
+                           where LOWER(nome_forum) = LOWER($1)
+                           order by nome_forum`;
 
-export const buscaForumS = `SELECT * 
-                            FROM forum 
-                            ORDER BY NOME_FORUM`;
+export const buscaforums = `select * 
+                            from forum 
+                            order by nome_forum`;
 
-export const buscaForumID = `SELECT * 
-                             FROM forum 
-                             WHERE ID = $1`;
+export const buscaforumid = `select * 
+                             from forum 
+                             where id = $1`;
 
-export const insertForum = `INSERT INTO forum ( NOME_FORUM
-                                              , RUA
-                                              , BAIRRO
-                                              , NUMERO
-                                              , CEP
-                                              , ID_CIDADE
-                                              , TELEFONE_FORUM
-                                              , EMAIL_FORUM
-                                              , OBSERVACAO
-                                              ) VALUES ( $1
+export const insertforum = `insert into forum ( nome_forum
+                                              , rua
+                                              , bairro
+                                              , numero
+                                              , cep
+                                              , id_cidade
+                                              , telefone_forum
+                                              , email_forum
+                                              , observacao
+                                              ) values ( $1
                                                        , $2
                                                        , $3
                                                        , $4
@@ -28,19 +28,19 @@ export const insertForum = `INSERT INTO forum ( NOME_FORUM
                                                        , $6
                                                        , $7
                                                        , $8
-                                                       , $9) RETURNING *`;
+                                                       , $9) returning *`;
 
-export const updateForum = `UPDATE forum 
-                            SET NOME_FORUM     = $1
-                              , RUA            = $2
-                              , BAIRRO         = $3
-                              , NUMERO         = $4
-                              , CEP            = $5
-                              , ID_CIDADE      = $6
-                              , TELEFONE_FORUM = $7
-                              , EMAIL_FORUM    = $8
-                              , OBSERVACAO     = $9 
-                            WHERE ID = $10 
-                            RETURNING *`;
+export const updateforum = `update forum 
+                            set nome_forum     = $1
+                              , rua            = $2
+                              , bairro         = $3
+                              , numero         = $4
+                              , cep            = $5
+                              , id_cidade      = $6
+                              , telefone_forum = $7
+                              , email_forum    = $8
+                              , observacao     = $9 
+                            where id = $10 
+                            returning *`;
 
-export const delForum = `DELETE FROM forum WHERE ID = $1`;
+export const delforum = `delete from forum where id = $1`;

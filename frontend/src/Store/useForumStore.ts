@@ -44,7 +44,7 @@ export const useForumStore = create<ForumState>((set,get)=>({
   try {
     const queryParams = new URLSearchParams({
       pagina: paginaAtual.toString(),
-      limite: '10',
+      limite: '5',
     });
 
     if (filter.nomeForum?.trim()) {
