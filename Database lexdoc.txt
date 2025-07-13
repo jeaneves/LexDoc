@@ -11,3 +11,23 @@ CREATE TABLE usuarios (
     id_funcionario  INTEGER,                     -- ID do funcionário associado
     data_criacao    DATE                         -- Data de criação do registro
 );
+
+CREATE TABLE FORUM (
+    ID        SERIAL PRIMARY KEY,
+    NOME_FORUM       VARCHAR(100),
+    RUA              VARCHAR(100),
+    BAIRRO           VARCHAR(50),
+    NUMERO           INTEGER,
+    CEP              VARCHAR(9),
+    ID_CIDADE        INTEGER,
+    TELEFONE_FORUM   VARCHAR(13),
+    EMAIL_FORUM      VARCHAR(100),
+    OBSERVACAO       VARCHAR(300)
+);
+
+create table codigos_penal (
+    id SERIAL PRIMARY KEY,
+    codigo_penal VARCHAR(30),
+    nome VARCHAR(100),
+    descricao VARCHAR(400)
+);
