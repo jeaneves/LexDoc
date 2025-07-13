@@ -19,6 +19,7 @@ export default function AppRoutes(){
                     <Route index element={<Dashboard/>} />
                     <Route path='forum' element={<Forum/>} />
                     <Route path='forum/forumed' element={<ForumED/>}/>
+                    <Route path='forum/forumed/:id' element={<ForumED/>}/>
 
                 </Route>
                 {/* Rota 404 */}

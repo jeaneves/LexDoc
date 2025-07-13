@@ -33,6 +33,21 @@ export default class ForumController {
         }
     }
 
+    static async listaforumid(req:Request, res: Response){
+        try{
+            const id = parseInt(req.params.id);
+            const result = await ForumService.listaforumid(id);
+            res.status(200).json({
+                result
+            });
+        } catch (error: any) {
+            res.status(500).json({
+                message: 'Erro ao deletar fórum',
+                data: error.message
+            });
+        }
+    }
+
     static async listaForums(req: Request, res: Response) {
         try {
             const pagina = parseInt(req.query.pagina as string) || 1;
