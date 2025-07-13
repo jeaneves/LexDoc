@@ -3,7 +3,7 @@ import * as CodigoPenalService from '../services/codigopenal.service';
 
 
 export default class CodigoPenal{
-    static async cadastraForum(req: Request, res: Response) {
+    static async cadastraCP(req: Request, res: Response) {
         try {
             const forum = await CodigoPenalService.cadastraCP(req.body);
             res.status(201).json({
@@ -34,7 +34,7 @@ export default class CodigoPenal{
             }
     }
 
-    static async listaforumid(req:Request, res: Response){
+    static async listaCPid(req:Request, res: Response){
             try{
                 const id = parseInt(req.params.id);
                 const result = await CodigoPenalService.listaCPid(id);
@@ -48,6 +48,21 @@ export default class CodigoPenal{
                 });
             }
     }
+
+    static async deletaCP(req: Request, res: Response) {
+            try {
+                const id = parseInt(req.params.id);
+                const result = await CodigoPenalService.deletaCP(id);
+                res.status(200).json({
+                    message: result.message
+                });
+            } catch (error: any) {
+                res.status(500).json({
+                    message: 'Erro ao deletar fórum',
+                    data: error.message
+                });
+            }
+        }
 
     static async listaCPs(req: Request, res: Response) {
             try {
