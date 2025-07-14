@@ -23,6 +23,7 @@ interface ForumEDProps{
 }
 
 export default function ForumED({forumData}:ForumEDProps) {
+ 
   const navigate = useNavigate();
   const {id} = useParams<{id: string}>();
 

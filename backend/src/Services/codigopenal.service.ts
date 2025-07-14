@@ -62,7 +62,7 @@ export async function deletaCP(id: number) {
 
     // Deleta fórum
     await db.query(delcp, [id]);   
-    return { message: "Fórum deletado com sucesso" };
+    return { message: "Código Penal deletado com sucesso" };
 }
 
 //listar Codigos para table com filtro.
@@ -74,7 +74,7 @@ export async function listaCPs({pagina, limite, nome}: FiltroCP) {
 
     if (nome) {
         valores.push(`%${nome}%`);
-        filtros.push(`upper(nome_forum) LIKE upper($${valores.length})`); // valores.length = 1 => $1
+        filtros.push(`upper(nome) LIKE upper($${valores.length})`); // valores.length = 1 => $1
     }
 
     const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}` : '';
