@@ -32,7 +32,7 @@ export default function Forum() {
   },[paginaAtual, filter.nomeForum]);
 
 
-   // Função para deletar fórum pelo id
+  // Função para deletar fórum pelo id
   const handleDelete = async (id: number) => {
     console.log("Clicou para deletar o fórum com ID:", id); // <- log de clique
     const confirmDelete = window.confirm("Tem certeza que deseja deletar este fórum?");
