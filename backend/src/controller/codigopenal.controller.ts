@@ -68,12 +68,12 @@ export default class CodigoPenal{
             try {
                 const pagina = parseInt(req.query.pagina as string) || 1;
                 const limite = parseInt(req.query.limite as string) || 10;
-                const nome   = (req.query.nomeForum as string) || "";
+                const nome   = (req.query.nome as string) || "";
     
                 const cp = await CodigoPenalService.listaCPs({pagina,limite,nome});
                 res.status(200).json({
-                    message: 'Lista de fóruns',
-                    forums: cp
+                    message: 'Lista de Codigos Penais',
+                    CodigosPenais: cp
                 });
             } catch (error: any) {
                 res.status(500).json({

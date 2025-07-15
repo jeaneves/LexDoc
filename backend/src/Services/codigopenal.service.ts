@@ -79,7 +79,7 @@ export async function listaCPs({pagina, limite, nome}: FiltroCP) {
 
     const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}` : '';
 
-    const forumQuery = `
+    const CPQuery = `
         SELECT * FROM codigos_penal
         ${whereClause}
         ORDER BY nome
@@ -89,7 +89,7 @@ export async function listaCPs({pagina, limite, nome}: FiltroCP) {
 
     valores.push(limite, offset);
 
-    const result = await db.query(forumQuery, valores);
+    const result = await db.query(CPQuery, valores);
 
     const totalQuery = `SELECT COUNT(*) FROM codigos_penal ${whereClause}`;
     const totalResult = await db.query(totalQuery, valores.slice(0, -2));

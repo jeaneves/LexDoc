@@ -30,13 +30,13 @@ interface ForumState {
 }
 
 export const useForumStore = create<ForumState>((set,get)=>({
-    forums: [],
-    paginaAtual: 1,
-    totalPaginas: 1,
-    filter: { nomeForum: '' },
-    isLoading:false,
+  forums: [],
+  paginaAtual: 1,
+  totalPaginas: 1,
+  filter: { nomeForum: '' },
+  isLoading:false,
 
-   buscarForum: async () => {
+  buscarForum: async () => {
   const { paginaAtual, filter } = get();
   const token = localStorage.getItem('token');
   set({ isLoading: true });
