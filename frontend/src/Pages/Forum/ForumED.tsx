@@ -4,6 +4,8 @@ import { Button } from "../../Components/Button";
 import { Input } from "../../Components/Inputs/Inputs";
 import { useNavigate, useParams } from "react-router-dom";
 import { TbArrowBack } from "react-icons/tb";
+import InputCEP from "../../Components/Inputs/InputCEP";
+import InputTelefone from "../../Components/Inputs/InputTel";
 
 interface ForumData{
   id?: number;
@@ -12,10 +14,11 @@ interface ForumData{
   numero: number ;
   cep: string;
   bairro: string;
-  id_cidade: number ;
+  cidade: number ;
   email_forum: string;
   telefone_forum: string;
   observacao: string;
+  estado: string;
 }
 
 interface ForumEDProps{
@@ -26,7 +29,7 @@ export default function ForumED({forumData}:ForumEDProps) {
  
   const navigate = useNavigate();
   const {id} = useParams<{id: string}>();
-
+  
   
 
   const [formData, setFormData] = useState <ForumData>({
@@ -36,10 +39,11 @@ export default function ForumED({forumData}:ForumEDProps) {
     numero: 0,
     cep: "",
     bairro: "",
-    id_cidade: 0,
+    cidade: 0,
     email_forum: "",
     telefone_forum: "",
     observacao: "",
+    estado:"",
   });
 
   // useEffect(()=>{
@@ -77,10 +81,11 @@ export default function ForumED({forumData}:ForumEDProps) {
             numero: data.numero ?? 0,
             cep: data.cep ?? "",
             bairro: data.bairro ?? "",
-            id_cidade: data.id_cidade ?? 0,
+            cidade: data.cidade ?? 0,
             email_forum: data.email_forum ?? "",
             telefone_forum: data.telefone_forum ?? "",
             observacao: data.observacao ?? "",
+            estado: data.estado ?? "",
           });
         } catch (error) {
           console.error(error);
@@ -98,7 +103,7 @@ export default function ForumED({forumData}:ForumEDProps) {
     const {name,value} = e.target;
     setFormData((prev)=>({
       ...prev,
-      [name]: ["id_cidade","numero"].includes(name) ? Number(value) : value,
+      [name]: ["numero"].includes(name) ? Number(value) : value,
     }));
   };
 
@@ -166,33 +171,37 @@ export default function ForumED({forumData}:ForumEDProps) {
         />
 
         <div className="flex flex-col md:flex-row gap-4 py-2">
-          <Input
-            
-            name="rua"
-            type="text"
-            placeholder="Rua do Fórum"
-            onChange={handleChange}
-            value={formData.rua}
-            className="w-full md:w-4/12"
-          />
-          <Input
-            
-            name="numero"
-            type="number"
-            placeholder="Número"
-            onChange={handleChange}
-            value={formData.numero}
-            className="w-full md:w-2/12"
-          />
-          <Input
-            
+          {/* <Input
             name="cep"
             type="text"
             placeholder="CEP"
             onChange={handleChange}
             value={formData.cep}
-            className="w-full md:w-3/12"
+            className="w-full md:w-2/12"
+          /> */}
+          <InputCEP
+            name="cep"
+            type="text"
+            value={formData.cep}
+            onChange={(valorFormatado) => setFormData({ ...formData, cep: valorFormatado })}
           />
+          <Input
+            name="rua"
+            type="text"
+            placeholder="Rua do Fórum"
+            onChange={handleChange}
+            value={formData.rua}
+            className="w-full md:w-9/12"
+          />
+          <Input
+            name="numero"
+            type="number"
+            placeholder="Número"
+            onChange={handleChange}
+            value={formData.numero}
+            className="w-full md:w-1/12"
+          />
+          
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 py-1">
@@ -206,16 +215,28 @@ export default function ForumED({forumData}:ForumEDProps) {
             className="w-full md:w-6/12"
           />
           <select 
-            className="w-full md:w-3/12 rounded border border-gray-300 px-3 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full md:w-5/12 rounded border border-gray-300 px-3 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
             
-            name="id_cidade"
-            value={formData.id_cidade}
+            name="cidade"
+            value={formData.cidade}
             onChange={handleChange}
           >
             <option value="1" >Andradina</option>
             <option value="2">Araçatuba</option>
             <option value="3">Birigui</option>
             <option value="4">Penápolis</option>
+          </select>
+          <select 
+            className="w-full md:w-1/12 rounded border border-gray-300 px-3 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
+            
+            name="estado"
+            value={formData.estado}
+            onChange={handleChange}
+          >
+            <option value="1">SP</option>
+            <option value="2">GO</option>
+            <option value="3">PE</option>
+            <option value="4">MG</option>
           </select>
         </div>
 
@@ -229,12 +250,11 @@ export default function ForumED({forumData}:ForumEDProps) {
             value={formData.email_forum}
             className="w-full md:w-8/12"
           />
-          <Input
+          <InputTelefone
             
             name="telefone_forum"
             type="text"
-            placeholder="Telefone"
-            onChange={handleChange}
+            onChange={(valorFormatado) => setFormData({ ...formData, telefone_forum: valorFormatado })}
             value={formData.telefone_forum}
             className="w-full md:w-4/12"
           />

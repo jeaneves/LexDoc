@@ -116,7 +116,7 @@ export default function Forum() {
               {forums.map((item) => (
                 <tr key={item.id} className="border-b">
                   <td className="py-5"><div className="font-semibold">{item.nome_forum}</div></td>
-                  <td>{item.id_cidade}</td>
+                  <td>{item.cidade} - {item.estado}</td>
                   <td>{item.telefone_forum}</td>
                   <td>{item.email_forum}</td>
                   <td>{item.observacao}</td>
@@ -149,7 +149,7 @@ export default function Forum() {
           <div key={item.id} className="border rounded-lg flex items-center p-2 gap-2">
             <div className="w-3/4">
             <div className="font-semibold">{item.nome_forum} </div>
-              <div className="font-semibold">{item.id_cidade}  </div>
+              <div className="font-semibold">{item.cidade} - {item.estado} </div>
               <div className="text-gray-500">{item.email_forum}</div>
               <div className="grid grid-cols-2 gap-2">
                 <div className="font-medium">{item.telefone_forum}</div>                                                       

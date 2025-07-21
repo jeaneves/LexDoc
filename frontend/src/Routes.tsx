@@ -8,6 +8,9 @@ import Forum  from './Pages/Forum/Forum';
 import ForumED from './Pages/Forum/ForumED';
 import CodigoPenal from './Pages/CodigoPenal/CodigoPenal';
 import CodigoPenalEd from './Pages/CodigoPenal/CodigoPenalED';
+import Cidade from './Pages/Cidade/Cidade';
+import Penitenciarias from './Pages/Penitenciarias/Penitenciarias';
+import Penitenciariaed from './Pages/Penitenciarias/PenitenciariasED';
 
 export default function AppRoutes(){
     return ( 
@@ -25,6 +28,9 @@ export default function AppRoutes(){
                     <Route path='codigopenal' element={<CodigoPenal/>}/>
                     <Route path='codigopenal/codigopenaled' element={<CodigoPenalEd/>}/>
                     <Route path='codigopenal/codigopenaled/:id' element={<CodigoPenalEd/>}/> 
+                    <Route path='cidades' element={<Cidade/>}/> 
+                    <Route path='Penitenciarias' element={<Penitenciarias/>}/> 
+                    <Route path='Penitenciarias/penitenciariaed' element={<Penitenciariaed/>}/> 
 
 
                 </Route>

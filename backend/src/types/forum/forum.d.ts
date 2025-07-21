@@ -5,10 +5,11 @@ export interface Forum{
     bairro           :varchar,
     numero           :number,
     cep              :varchar,
-    id_cidade        :number,
+    cidade           :varchar,
     telefone_forum   :varchar,
     email_forum      :varchar,
-    observacao       :varchar
+    observacao       :varchar,
+    estado           :varchar
 }
 
 export interface FiltroForum{

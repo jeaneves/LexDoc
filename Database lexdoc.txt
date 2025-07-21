@@ -12,17 +12,19 @@ CREATE TABLE usuarios (
     data_criacao    DATE                         -- Data de criação do registro
 );
 
-CREATE TABLE FORUM (
-    ID        SERIAL PRIMARY KEY,
-    NOME_FORUM       VARCHAR(100),
-    RUA              VARCHAR(100),
-    BAIRRO           VARCHAR(50),
-    NUMERO           INTEGER,
-    CEP              VARCHAR(9),
-    ID_CIDADE        INTEGER,
-    TELEFONE_FORUM   VARCHAR(13),
-    EMAIL_FORUM      VARCHAR(100),
-    OBSERVACAO       VARCHAR(300)
+CREATE TABLE forum(
+    id SERIAL NOT NULL,
+    nome_forum varchar(100),
+    rua varchar(100),
+    bairro varchar(50),
+    numero integer,
+    cep varchar(9),
+    cidade varchar(50),
+    telefone_forum varchar(13),
+    email_forum varchar(100),
+    observacao varchar(300),
+    estado varchar(2),
+    PRIMARY KEY(id)
 );
 
 create table codigos_penal (

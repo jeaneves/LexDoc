@@ -7,7 +7,7 @@ import CodigoPenalRoutes from './routes/codigopenal.routes';
 import { testConnection } from './config/db';
 
 
-
+ 
 dotenv.config();
 
 const app = express();

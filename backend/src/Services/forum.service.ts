@@ -10,10 +10,11 @@ export async function cadastraForum(data: Forum) {
         bairro,
         numero,
         cep,
-        id_cidade,
+        cidade,
         telefone_forum,
         email_forum,
-        observacao
+        observacao,
+        estado
     } = data;
 
     // Verifica se o fórum já existe
@@ -28,10 +29,11 @@ export async function cadastraForum(data: Forum) {
                                              , bairro
                                              , numero
                                              , cep
-                                             , id_cidade
+                                             , cidade
                                              , telefone_forum
                                              , email_forum
-                                             , observacao]);
+                                             , observacao
+                                             , estado]);
 
     return result.rows[0];
 
@@ -46,10 +48,11 @@ export async function alteraForum(id_forum:number, data: Forum) {
         bairro,
         numero,
         cep,
-        id_cidade,
+        cidade,
         telefone_forum,
         email_forum,
-        observacao
+        observacao,
+        estado
     } = data;
 
     // Verifica se o fórum existe
@@ -64,10 +67,11 @@ export async function alteraForum(id_forum:number, data: Forum) {
                                               , bairro
                                               , numero
                                               , cep
-                                              , id_cidade
+                                              , cidade
                                               , telefone_forum
                                               , email_forum
                                               , observacao
+                                              , estado
                                               , id_forum]
     );
 

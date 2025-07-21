@@ -70,7 +70,7 @@ export default function Sidebar(){
                   <RiPoliceBadgeFill   size={13} />
                   {!collapsed && <span>Penitenciarias</span>}
                 </a>
-                <a onClick={() => handleNavigation('/cidades')}  className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
+                <a onClick={(e) => e.preventDefault()}  className=" flex  items-center gap-2 text-gray-400 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaTreeCity   size={13} />
                   {!collapsed && <span>Cidades</span>}
                 </a>
@@ -95,7 +95,7 @@ export default function Sidebar(){
                 )}
                 <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaUserCog size={13} />
-                  {!collapsed && <span>Usuários</span>}
+                  {!collapsed && <span>Funcionarios</span>}
                 </a>
                 
               </div>

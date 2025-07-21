@@ -8,10 +8,11 @@ interface Forum{
     bairro           :string;
     numero           :number;
     cep              :string;
-    id_cidade        :number;
+    cidade           :string;
     telefone_forum   :string;
     email_forum      :string;
     observacao       :string;
+    estado           :string;
 }
 
 interface FilterForum {

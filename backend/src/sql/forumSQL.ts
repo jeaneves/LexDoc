@@ -16,10 +16,11 @@ export const insertforum = `insert into forum ( nome_forum
                                               , bairro
                                               , numero
                                               , cep
-                                              , id_cidade
+                                              , cidade
                                               , telefone_forum
                                               , email_forum
                                               , observacao
+                                              , estado
                                               ) values ( $1
                                                        , $2
                                                        , $3
@@ -28,7 +29,8 @@ export const insertforum = `insert into forum ( nome_forum
                                                        , $6
                                                        , $7
                                                        , $8
-                                                       , $9) returning *`;
+                                                       , $9
+                                                       , $10) returning *`;
 
 export const updateforum = `update forum 
                             set nome_forum     = $1
@@ -36,11 +38,12 @@ export const updateforum = `update forum
                               , bairro         = $3
                               , numero         = $4
                               , cep            = $5
-                              , id_cidade      = $6
+                              , cidade         = $6
                               , telefone_forum = $7
                               , email_forum    = $8
                               , observacao     = $9 
-                            where id = $10 
+                              , estado         = $10
+                            where id = $11 
                             returning *`;
 
 export const delforum = `delete from forum where id = $1`;
