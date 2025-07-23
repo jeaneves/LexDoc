@@ -1,13 +1,12 @@
-import { BiChevronLeft, BiChevronRight } from "react-icons/bi";
 import { useSidebarStore } from "../Store/useSideBarStore";
-import { MdOutlineRuleFolder, MdOutlineSpaceDashboard } from "react-icons/md";
-import { FaBook, FaTasks, FaUserCog} from "react-icons/fa";
+import { FaUserCog} from "react-icons/fa";
 import { useState } from "react";
-import { GiArchiveRegister } from "react-icons/gi";
 import { FaTreeCity } from "react-icons/fa6";
 import { LuBookX } from "react-icons/lu";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
+import { FcFolder, FcList, FcNext, FcOpenedFolder, FcPrevious, FcTemplate } from "react-icons/fc";
+import { HiMiniClipboardDocumentList } from "react-icons/hi2";
 
 
 export default function Sidebar(){
@@ -44,23 +43,23 @@ export default function Sidebar(){
   }
 
   return(
-    <aside className={`fixed top-0 left-0 h-screen bg-blue-100 shadow-md p-4 z-20 transition-all duration-300 ${collapsed ? "w-16" : "w-64"}`}>
+    <aside className={`fixed top-0 left-0 h-screen bg-blue-50 shadow-lg p-4 z-20 transition-all duration-300 ${collapsed ? "w-16" : "w-64"}`}>
       <div className="flex justify-between items-center mb-4">
           {!collapsed && <span className="font-semibold text-black">Menu</span>}
           <button onClick={handleToggleSidebar} className="text-blue-800 hover:text-blue-600 p-1 rounded-full hover:bg-blue-200" title={collapsed ? "Expandir" : "Recolher"}>
-              {collapsed ? <BiChevronRight size={20} /> : <BiChevronLeft size={20} />}
+              {collapsed ? <FcNext   size={20} /> : <FcPrevious  size={20} />}
           </button>
       </div>
 
       <nav className="flex flex-col space-y-4 text-black">
           <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início" style={{ cursor: "pointer" }}>
-                <MdOutlineSpaceDashboard size={24} />
+                <FcTemplate  size={24} />
               {!collapsed && <span>Dashboard</span>}
           </a>
           {/* Item de Cadastros com submenu */}
           <div>
             <a onClick={() => setCadastrosOpen(!cadastrosOpen)} className="flex items-center w-full gap-2 hover:text-blue-900">
-              {!cadastrosOpen ? <FaBook size={24}/> :<GiArchiveRegister size={24}/>}  
+              {!cadastrosOpen ? <FcFolder  size={24}/> :<FcOpenedFolder  size={24}/>}  
               {!collapsed && <span>Cadastros</span>}
             </a>
             {/* Submenus visíveis somente se cadastrosOpen for true e menu não estiver colapsado */}
@@ -79,7 +78,7 @@ export default function Sidebar(){
                   {!collapsed && <span>Código Penal</span>}
                 </a>
                 <a onClick={() => handleNavigation('/forum')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
-                  <MdOutlineRuleFolder   size={13} />
+                  <HiMiniClipboardDocumentList    size={13} />
                   {!collapsed && <span>Fórum</span>}
                 </a>
                 {collapsed && (
@@ -102,7 +101,7 @@ export default function Sidebar(){
             )}
           </div>
           <a onClick={() => handleNavigation('/')}  className="flex items-center gap-2 hover:text-blue-900" title="Início" style={{ cursor: "pointer" }}>
-                <FaTasks size={24} />
+                <FcList  size={24} />
               {!collapsed && <span>Tarefas</span>}
           </a>
       </nav>

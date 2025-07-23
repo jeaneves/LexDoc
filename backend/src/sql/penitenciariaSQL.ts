@@ -18,7 +18,8 @@ export const inserePeniten = `INSERT INTO penitenciarias (nome,
                                                          telefone_diretor,
                                                          email_diretor,
                                                          masculina_feminina,
-                                                         observacao
+                                                         observacao,
+                                                         uf
                                                          ) VALUES ( $1, 
                                                                     $2, 
                                                                     $3, 
@@ -34,7 +35,8 @@ export const inserePeniten = `INSERT INTO penitenciarias (nome,
                                                                     $13, 
                                                                     $14, 
                                                                     $15, 
-                                                                    $16 ) returning *`;
+                                                                    $16,
+                                                                    $17 ) returning *`;
 
 export const buscapenitenid = `select * 
                              from penitenciarias
@@ -45,7 +47,7 @@ export const updatepeniten =`UPDATE penitenciarias SET
                                     rua                = $2,
                                     numero             = $3,
                                     bairro             = $4,
-                                    sequenciacidade    = $5,
+                                    cidade             = $5,
                                     cep                = $6,
                                     telefone           = $7,
                                     fax                = $8,
@@ -56,7 +58,8 @@ export const updatepeniten =`UPDATE penitenciarias SET
                                     telefone_diretor   = $13,
                                     email_diretor      = $14,
                                     masculina_feminina = $15,
-                                    observacao         = $16
-                                WHERE id = $17`;  
+                                    observacao         = $16,
+                                    uf                 = $17
+                                WHERE id = $18`;  
 
 export const delPeniten = `delete from penitenciarias where id = $1`;                                

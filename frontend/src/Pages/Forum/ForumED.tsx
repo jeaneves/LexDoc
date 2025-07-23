@@ -46,14 +46,48 @@ export default function ForumED({forumData}:ForumEDProps) {
     estado:"",
   });
 
-  // useEffect(()=>{
-  //   if (forumData){
-  //     setFormData(forumData);
-  //   }
-  // },[forumData]);
+  const buscarEnderecoPorCEP = async (cep: string) => {
+    try {
+      const response = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
+      if (!response.ok) throw new Error("Erro ao buscar endereço pelo CEP");
+            
+      const data = await response.json();
+      if (data.erro) throw new Error("CEP não encontrado");
 
-// Busca os dados se houver ID na URL
-   useEffect(() => {
+      return {
+        rua: data.logradouro || "",
+        bairro: data.bairro || "",
+        cidade: data.localidade || "",
+        uf: data.uf || "",
+      };
+      } catch (error) {
+        console.error(error);
+        alert("Erro ao buscar endereço pelo CEP.");
+        return null;
+    }
+  };
+    
+  useEffect(() => {
+    const consultarCEP = async () => {
+      const cepNumerico = formData.cep.replace(/\D/g, ""); // remove traços, pontos etc.
+        if (cepNumerico.length === 8) {
+          const endereco = await buscarEnderecoPorCEP(formData.cep);
+          if (endereco) {
+            setFormData((prev) => ({
+              ...prev,
+              rua: endereco.rua,
+              bairro: endereco.bairro,
+              cidade: endereco.cidade,
+              estado: endereco.uf,
+            }));
+          }
+        }
+      };
+      consultarCEP();
+  }, [formData.cep]);
+
+  // Busca os dados se houver ID na URL
+  useEffect(() => {
     if (id) {
       const fetchForum = async () => {
         try {
@@ -184,6 +218,7 @@ export default function ForumED({forumData}:ForumEDProps) {
             type="text"
             value={formData.cep}
             onChange={(valorFormatado) => setFormData({ ...formData, cep: valorFormatado })}
+            className="w-full md:w-2/12"
           />
           <Input
             name="rua"
@@ -191,7 +226,7 @@ export default function ForumED({forumData}:ForumEDProps) {
             placeholder="Rua do Fórum"
             onChange={handleChange}
             value={formData.rua}
-            className="w-full md:w-9/12"
+            className="w-full md:w-8/12"
           />
           <Input
             name="numero"
@@ -201,12 +236,10 @@ export default function ForumED({forumData}:ForumEDProps) {
             value={formData.numero}
             className="w-full md:w-1/12"
           />
-          
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 py-1">
           <Input
-            
             name="bairro"
             type="text"
             placeholder="Bairro"
@@ -214,30 +247,23 @@ export default function ForumED({forumData}:ForumEDProps) {
             value={formData.bairro}
             className="w-full md:w-6/12"
           />
-          <select 
-            className="w-full md:w-5/12 rounded border border-gray-300 px-3 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-            
+          <Input 
             name="cidade"
-            value={formData.cidade}
+            type="text"
+            placeholder="Cidade"
             onChange={handleChange}
-          >
-            <option value="1" >Andradina</option>
-            <option value="2">Araçatuba</option>
-            <option value="3">Birigui</option>
-            <option value="4">Penápolis</option>
-          </select>
-          <select 
+            value={formData.cidade}
+            className="w-full md:w-4/12"
+          />
+          <Input 
             className="w-full md:w-1/12 rounded border border-gray-300 px-3 py-2 shadow focus:outline-none focus:ring-2 focus:ring-blue-500"
-            
+            type="text"
             name="estado"
+            placeholder="UF"
             value={formData.estado}
             onChange={handleChange}
-          >
-            <option value="1">SP</option>
-            <option value="2">GO</option>
-            <option value="3">PE</option>
-            <option value="4">MG</option>
-          </select>
+          />
+          
         </div>
 
         <div className="flex flex-col md:flex-row gap-4 py-1">

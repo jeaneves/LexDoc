@@ -29,11 +29,12 @@ export default function AppRoutes(){
                     <Route path='codigopenal/codigopenaled' element={<CodigoPenalEd/>}/>
                     <Route path='codigopenal/codigopenaled/:id' element={<CodigoPenalEd/>}/> 
                     <Route path='cidades' element={<Cidade/>}/> 
-                    <Route path='Penitenciarias' element={<Penitenciarias/>}/> 
-                    <Route path='Penitenciarias/penitenciariaed' element={<Penitenciariaed/>}/> 
+                    <Route path='penitenciarias' element={<Penitenciarias/>}/> 
+                    <Route path='penitenciarias/penitenciariaed' element={<Penitenciariaed/>}/> 
+                    <Route path='penitenciarias/penitenciariaed/:id' element={<Penitenciariaed/>}/> 
 
 
-                </Route>
+              </Route>
                 {/* Rota 404 */}
                 <Route path="*" element={<NotFoundPage/>} />
 

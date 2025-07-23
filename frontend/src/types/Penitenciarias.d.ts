@@ -1,5 +1,5 @@
 export interface Penitenciaria{
-    id                  :number,
+    id?                  :number,
     nome                :string,
     rua                 :string,
     numero              :number,
@@ -21,7 +21,9 @@ export interface Penitenciaria{
 
 //filtro
 export interface FiltroPenitenciaria{
-    pagina: number,
-    limite: number,
-    nome?: string
+    nome?: string,
+}
+
+export interface PenitenciariaEDProps{
+  PenitenciariaData?: Penitenciaria
 }

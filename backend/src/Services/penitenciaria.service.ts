@@ -21,6 +21,7 @@ export async function cadastraPenitenciaria(data: Penitenciaria){
         email_diretor      ,
         masculina_feminina ,
         observacao         ,
+        uf         ,
     } =data;
 
     //verifica se ja existe pelo nome
@@ -44,7 +45,8 @@ export async function cadastraPenitenciaria(data: Penitenciaria){
                                                     ,telefone_diretor   
                                                     ,email_diretor      
                                                     ,masculina_feminina 
-                                                    ,observacao]);
+                                                    ,observacao
+                                                    ,uf]);
         return result.rows[0];
 }
 //altera
@@ -66,6 +68,7 @@ export async function alteraPenitenciaria(id:number, data:Penitenciaria){
         email_diretor      ,
         masculina_feminina ,
         observacao         ,
+        uf                 ,
     } =data;
 
     //verifica se o ID existe na base
@@ -90,6 +93,7 @@ export async function alteraPenitenciaria(id:number, data:Penitenciaria){
                                                 ,email_diretor      
                                                 ,masculina_feminina 
                                                 ,observacao
+                                                ,uf
                                                 ,id]
         );
         return result.rows[0];
@@ -109,7 +113,7 @@ export async function listaPenitenciarias({pagina, limite, nome}: FiltroPenitenc
 
     const whereClause = filtros.length ? `WHERE ${filtros.join(' AND ')}` : '';
 
-    const CPQuery = `
+    const PenitenQuery = `
         SELECT * FROM penitenciarias
         ${whereClause}
         ORDER BY nome
@@ -119,7 +123,7 @@ export async function listaPenitenciarias({pagina, limite, nome}: FiltroPenitenc
 
     valores.push(limite, offset);
 
-    const result = await db.query(CPQuery, valores);
+    const result = await db.query(PenitenQuery, valores);
 
     const totalQuery = `SELECT COUNT(*) FROM penitenciarias ${whereClause}`;
     const totalResult = await db.query(totalQuery, valores.slice(0, -2));

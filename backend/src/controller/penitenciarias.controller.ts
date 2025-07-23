@@ -71,10 +71,10 @@ export default class Penitenciaria{
                 const limite = parseInt(req.query.limite as string) || 10;
                 const nome   = (req.query.nome as string) || "";
     
-                const cp = await PenitenciariaService.listaPenitenciarias({pagina,limite,nome});
+                const penitenciarias = await PenitenciariaService.listaPenitenciarias({pagina,limite,nome});
                 res.status(200).json({
                     message: 'Lista de Penitenciarias',
-                    CodigosPenais: cp
+                    Penitenciarias: penitenciarias
                 });
             } catch (error: any) {
                 res.status(500).json({
