@@ -1,6 +1,6 @@
 import { db } from "../config/db";
 import { buscacp, buscacpid, delcp, inserecp, updatecp } from "../sql/codigopenalSQL";
-import { CodigoPenal, FiltroCP } from "../types/codigo_penal/codigopenal";
+import { CodigoPenal, FiltroCP } from "../types/codigopenal";
 
 //cadastra codigo penal
 export async function cadastraCP(data: CodigoPenal){

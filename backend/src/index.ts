@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import UserRoutes from './routes/usuarios.routes';
 import ForumRoutes from './routes/forum.routes';
 import CodigoPenalRoutes from './routes/codigopenal.routes';
+import PenitenciariaRoutes from './routes/penitenciaria.route';
 import { testConnection } from './config/db';
 
 
@@ -38,6 +39,8 @@ app.use('/health', require('./routes/health.routes').default);
 app.use('/usuarios',UserRoutes);
 app.use('/forum', ForumRoutes);
 app.use('/codigopenal', CodigoPenalRoutes);
+app.use('/penitenciarias', PenitenciariaRoutes);
+
 
 
 

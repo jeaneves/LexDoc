@@ -1,6 +1,6 @@
 import { db } from "../config/db";
 import { buscaforum, buscaforumid, delforum, insertforum, updateforum } from "../sql/forumSQL";
-import { Forum, FiltroForum } from "../types/forum/forum";
+import { Forum, FiltroForum } from "../types/forum";
 
 // cadastraForum: Cadastra um novo fórum
 export async function cadastraForum(data: Forum) {

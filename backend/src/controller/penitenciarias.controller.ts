@@ -1,14 +1,15 @@
 import { Request, Response } from 'express';
-import * as CodigoPenalService from '../services/codigopenal.service';
+import * as PenitenciariaService from '../services/penitenciaria.service';
 
 
-export default class CodigoPenal{
-    static async cadastraCP(req: Request, res: Response) {
+export default class Penitenciaria{
+    static async cadastraPenitenciaria(req: Request, res: Response) {
         try {
-            const CodigoPenal = await CodigoPenalService.cadastraCP(req.body);
+            const penitenciaria = await PenitenciariaService.cadastraPenitenciaria(req.body);
             res.status(201).json({
+
                 message: 'Cadastrado com sucesso',
-                forum: CodigoPenal
+                forum: penitenciaria
             });
         } catch (error: any) {
             res.status(500).json({
@@ -18,13 +19,13 @@ export default class CodigoPenal{
         }
     }
 
-    static async alteraCP(req: Request, res: Response) {
+    static async alteraPenitenciaria(req: Request, res: Response) {
             try {
                 const id = parseInt(req.params.id);
-                const CodigoPenal = await CodigoPenalService.alteraCP(id, req.body);
+                const penitenciaria = await PenitenciariaService.alteraPenitenciaria(id, req.body);
                 res.status(200).json({
                     message: 'Atualizado com sucesso',
-                    forum: CodigoPenal
+                    forum: penitenciaria
                 });
             } catch (error: any) {
                 res.status(500).json({
@@ -34,10 +35,10 @@ export default class CodigoPenal{
             }
     }
 
-    static async listaCPid(req:Request, res: Response){
+    static async listaPenitenciariaid(req:Request, res: Response){
             try{
                 const id = parseInt(req.params.id);
-                const result = await CodigoPenalService.listaCPid(id);
+                const result = await PenitenciariaService.listaPenitenid(id);
                 res.status(200).json({
                     result
                 });
@@ -49,10 +50,10 @@ export default class CodigoPenal{
             }
     }
 
-    static async deletaCP(req: Request, res: Response) {
+    static async deletaPenitenciaria(req: Request, res: Response) {
             try {
                 const id = parseInt(req.params.id);
-                const result = await CodigoPenalService.deletaCP(id);
+                const result = await PenitenciariaService.deletaPenitenciaria(id);
                 res.status(200).json({
                     message: result.message
                 });
@@ -64,15 +65,15 @@ export default class CodigoPenal{
             }
         }
 
-    static async listaCPs(req: Request, res: Response) {
+    static async listaPenitenciarias(req: Request, res: Response) {
             try {
                 const pagina = parseInt(req.query.pagina as string) || 1;
                 const limite = parseInt(req.query.limite as string) || 10;
                 const nome   = (req.query.nome as string) || "";
     
-                const cp = await CodigoPenalService.listaCPs({pagina,limite,nome});
+                const cp = await PenitenciariaService.listaPenitenciarias({pagina,limite,nome});
                 res.status(200).json({
-                    message: 'Lista de Codigos Penais',
+                    message: 'Lista de Penitenciarias',
                     CodigosPenais: cp
                 });
             } catch (error: any) {
