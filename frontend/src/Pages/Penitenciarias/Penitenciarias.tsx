@@ -30,6 +30,7 @@ export default function Penitenciarias(){
 
     //Função para deletar pelo ID
     const handleDeletePenitenciaria = async(id:number)=>{
+        
         const confirmaDelete = window.confirm("Tem certeza que quer deletar a penitenciaria do sistema?");
         const token = localStorage.getItem("token");
 
@@ -118,7 +119,7 @@ export default function Penitenciarias(){
                                         <AiFillEdit  size={15}/> 
                                     </div>
                                     <div className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
-                                        onClick={() => handleDeletePenitenciaria(item.id)}
+                                        onClick={() => handleDeletePenitenciaria(item.id!)}
                                         style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                                     >
                                         <FaRegTrashAlt size={15} data-tip="Clique aqui para deletar"/>
@@ -153,7 +154,7 @@ export default function Penitenciarias(){
                                                 </div>
                                                 <div
                                                     className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
-                                                    onClick={() => handleDeletePenitenciaria(item.id)}
+                                                    onClick={() => handleDeletePenitenciaria(item.id!)}
                                                     style={{ cursor: "pointer" }}
                                                 >
                                                     <FaRegTrashAlt size={15} data-tip="Clique aqui para deletar" />
@@ -161,7 +162,7 @@ export default function Penitenciarias(){
                                             </div>
                                         </div>
                                         {/* Botão para mostrar/ocultar observação */}
-                                        <button className="text-blue-600 text-sm mt-2 hover:underline" onClick={() => setItemExpandido(itemExpandido === item.id ? null : item.id)}>
+                                        <button className="text-blue-600 text-sm mt-2 hover:underline" onClick={() => setItemExpandido(itemExpandido === item.id! ? null : item.id!)}>
                                             {itemExpandido ? <FaRegMinusSquare /> : <FaRegPlusSquare /> }
                                         </button>
                                         {/* Observação visível condicionalmente */}

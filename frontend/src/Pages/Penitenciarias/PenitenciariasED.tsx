@@ -352,8 +352,8 @@ export default function Penitenciariaed({PenitenciariaData}:PenitenciariaEDProps
                 </div>
                 
                 <div className="flex items-center justify-between mt-4 ">
-                    {/* <Button  type='submit' color="green" >  {formData.id ? "Atualizar" : "Salvar"}</Button>   */}
-                    <Button  type='submit' color="green" >  Salvar</Button>  
+                    <Button  type='submit' color="green" >  {formData.id ? "Atualizar" : "Salvar"}</Button>  
+                    
                 </div>
                 
 

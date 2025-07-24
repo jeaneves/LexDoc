@@ -1,12 +1,13 @@
 import { useSidebarStore } from "../Store/useSideBarStore";
 import { FaUserCog} from "react-icons/fa";
 import { useState } from "react";
-import { FaTreeCity } from "react-icons/fa6";
+import { FaGears, FaTreeCity, FaUsers } from "react-icons/fa6";
 import { LuBookX } from "react-icons/lu";
 import { RiPoliceBadgeFill } from "react-icons/ri";
 import { useNavigate } from 'react-router-dom';
 import { FcFolder, FcList, FcNext, FcOpenedFolder, FcPrevious, FcTemplate } from "react-icons/fc";
 import { HiMiniClipboardDocumentList } from "react-icons/hi2";
+
 
 
 export default function Sidebar(){
@@ -65,6 +66,10 @@ export default function Sidebar(){
             {/* Submenus visíveis somente se cadastrosOpen for true e menu não estiver colapsado */}
             {cadastrosOpen && (
               <div className={`mt-2 flex flex-col space-y-2 text-sm ${collapsed ? "ml-2" : "ml-6"}`}>
+                <a onClick={() => handleNavigation('/clientes')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
+                  <FaUsers    size={13} />
+                  {!collapsed && <span>Clientes</span>}
+                </a>
                 <a onClick={() => handleNavigation('/penitenciarias')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <RiPoliceBadgeFill   size={13} />
                   {!collapsed && <span>Penitenciarias</span>}
@@ -92,9 +97,13 @@ export default function Sidebar(){
                     <div className="flex-grow border-t border-gray-300"></div>
                   </div>
                 )}
-                <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2 hover:text-blue-900" style={{ cursor: "pointer" }}>
+                <a onClick={() => handleNavigation('/funcionarios')} className="flex items-center gap-2  hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaUserCog size={13} />
                   {!collapsed && <span>Funcionarios</span>}
+                </a>
+                <a onClick={() => handleNavigation('/parametros')} className="flex items-center gap-2 text-gray-400 hover:text-blue-900" style={{ cursor: "pointer" }}>
+                  <FaGears size={13} />
+                  {!collapsed && <span>Parâmetros</span>}
                 </a>
                 
               </div>

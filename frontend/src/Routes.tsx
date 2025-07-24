@@ -11,6 +11,10 @@ import CodigoPenalEd from './Pages/CodigoPenal/CodigoPenalED';
 import Cidade from './Pages/Cidade/Cidade';
 import Penitenciarias from './Pages/Penitenciarias/Penitenciarias';
 import Penitenciariaed from './Pages/Penitenciarias/PenitenciariasED';
+import Clientes from './Pages/Clientes/Clientes';
+import ClientesED from './Pages/Clientes/ClientesED';
+import Funcionarios from './Pages/Funcionarios/Funcionarios';
+import FuncionariosED from './Pages/Funcionarios/FuncionariosED';
 
 export default function AppRoutes(){
     return ( 
@@ -32,6 +36,13 @@ export default function AppRoutes(){
                     <Route path='penitenciarias' element={<Penitenciarias/>}/> 
                     <Route path='penitenciarias/penitenciariaed' element={<Penitenciariaed/>}/> 
                     <Route path='penitenciarias/penitenciariaed/:id' element={<Penitenciariaed/>}/> 
+                    <Route path='penitenciarias/penitenciariaed/:id' element={<Penitenciariaed/>}/> 
+                    <Route path='clientes' element={<Clientes/>}/> 
+                    <Route path='clientes/clientesed' element={<ClientesED/>}/> 
+                    <Route path='clientes/clientesed/:id' element={<ClientesED/>}/> 
+                    <Route path='funcionarios' element={<Funcionarios/>}/> 
+                    <Route path='funcionarios/funcionariosed' element={<FuncionariosED/>}/> 
+                    <Route path='funcionarios/funcionariosed/:id' element={<FuncionariosED/>}/> 
 
 
               </Route>
