@@ -6,6 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TbArrowBack } from "react-icons/tb";
 import InputCEP from "../../Components/Inputs/InputCEP";
 import InputTelefone from "../../Components/Inputs/InputTel";
+import AlertOK from "@/Components/AlertOk";
 
 interface ForumData{
   id?: number;
@@ -167,6 +168,7 @@ export default function ForumED({forumData}:ForumEDProps) {
 
       const data = await response.json();
       console.log('backend',data)
+      
       alert(data.message || `Fórum ${forumData?.id ? "atualizado" : "cadastrado"} com sucesso!`);
       navigate('/forum');
     } catch (error: unknown) {
@@ -194,6 +196,7 @@ export default function ForumED({forumData}:ForumEDProps) {
       
 
       <form className="bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
+        
         <Input
           
           name="nome_forum"

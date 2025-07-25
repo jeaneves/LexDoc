@@ -147,7 +147,7 @@ export default function Penitenciarias(){
                                             <div className="font-medium"></div>                                                       
                                             <div className="flex items-center gap-2"> {/* Adicionei flex e gap aqui */}
                                                 <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
-                                                    onClick={() => navigate(`/codigopenal/codigopenaled/${item.id}`)} // Editar
+                                                    onClick={() => navigate(`/penitenciarias/penitenciariaed/${item.id}`)} // Editar
                                                     style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                                                 >
                                                     <AiFillEdit size={15}/> 
