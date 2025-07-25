@@ -8,7 +8,7 @@ export default class CodigoPenal{
             const CodigoPenal = await CodigoPenalService.cadastraCP(req.body);
             res.status(201).json({
                 message: 'Cadastrado com sucesso',
-                forum: CodigoPenal
+                CodigoPenal: CodigoPenal
             });
         } catch (error: any) {
             res.status(500).json({
@@ -24,7 +24,7 @@ export default class CodigoPenal{
                 const CodigoPenal = await CodigoPenalService.alteraCP(id, req.body);
                 res.status(200).json({
                     message: 'Atualizado com sucesso',
-                    forum: CodigoPenal
+                    codigopenal: CodigoPenal
                 });
             } catch (error: any) {
                 res.status(500).json({

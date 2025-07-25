@@ -5,6 +5,7 @@ import UserRoutes from './routes/usuarios.routes';
 import ForumRoutes from './routes/forum.routes';
 import CodigoPenalRoutes from './routes/codigopenal.routes';
 import PenitenciariaRoutes from './routes/penitenciaria.route';
+import FuncionariosRoutes from './routes/funcionarios.routes';
 import { testConnection } from './config/db';
 
 
@@ -40,6 +41,7 @@ app.use('/usuarios',UserRoutes);
 app.use('/forum', ForumRoutes);
 app.use('/codigopenal', CodigoPenalRoutes);
 app.use('/penitenciarias', PenitenciariaRoutes);
+app.use('/funcionarios', FuncionariosRoutes);
 
 
 
