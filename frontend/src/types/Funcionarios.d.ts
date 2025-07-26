@@ -23,6 +23,7 @@ export interface Funcionario{
     observacao          :string,
     datacadastro        :string,
     dataalteracao       :string,
+    uf                  :string,
 };
 
 

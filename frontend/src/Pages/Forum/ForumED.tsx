@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { TbArrowBack } from "react-icons/tb";
 import InputCEP from "../../Components/Inputs/InputCEP";
 import InputTelefone from "../../Components/Inputs/InputTel";
-import AlertOK from "@/Components/AlertOk";
+
 
 interface ForumData{
   id?: number;
@@ -15,7 +15,7 @@ interface ForumData{
   numero: number ;
   cep: string;
   bairro: string;
-  cidade: number ;
+  cidade: string ;
   email_forum: string;
   telefone_forum: string;
   observacao: string;
@@ -40,7 +40,7 @@ export default function ForumED({forumData}:ForumEDProps) {
     numero: 0,
     cep: "",
     bairro: "",
-    cidade: 0,
+    cidade: "",
     email_forum: "",
     telefone_forum: "",
     observacao: "",
@@ -154,7 +154,7 @@ export default function ForumED({forumData}:ForumEDProps) {
         ? `${import.meta.env.VITE_API_URL}/forum/alteraforum/${formData.id}`
         : `${import.meta.env.VITE_API_URL}/forum/cadastraforum`;
 
-        const response = await fetch(url, {
+      const response = await fetch(url, {
         method,
         headers: {
           "Content-Type": "application/json",
