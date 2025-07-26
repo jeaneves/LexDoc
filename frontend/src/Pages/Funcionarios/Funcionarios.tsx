@@ -110,7 +110,7 @@ export default function Funcionarios(){
                     <table className="w-full border-collapse">
                         <thead className="border-b">
                             <tr>
-                                <th className="text-left py-2 pr-2 w-1/12">Nome</th>
+                                <th className="text-left py-2 pr-2 w-2/12">Nome</th>
                                 <th className="text-left py-2 pr-2 w-1/12">e-mail</th>
                                 <th className="text-left py-2 pr-2 w-1/12">Tipo Funcionario</th>
                                 <th className="text-left py-2 pr-2 w-1/12">Cargo</th>
@@ -124,16 +124,19 @@ export default function Funcionarios(){
                                 <tr  key={item.id} className="border-b">
                                     <td className="py-5">
                                         <div className="flex font-semibold items-center">
-                                            <img
-                                            src="https://i.pravatar.cc/40"
+                                            <img 
+                                                src={item.foto_perfil_url?.trim()
+                                                    ? `${import.meta.env.VITE_API_URL}${item.foto_perfil_url}?`
+                                                    : "/avatar.png" 
+                                                }
                                             alt="Foto de perfil"
-                                            className="w-8 h-8 rounded-full"
+                                            className="w-16 h-16 rounded-full"
                                             /> 
                                             <div className="px-2 ">{item.nome}</div>
                                         </div>                                        
                                     </td>
                                     <td>{item.email}</td>
-                                    <td>{getTipoFuncionario(item.tipo_funcionario)}</td>
+                                    <td>{item.tipo_funcionario}</td>
                                     <td>{item.cargo}</td>
                                     <td>{item.observacao}</td>
                                     <td>
@@ -167,10 +170,13 @@ export default function Funcionarios(){
                         <div className="w-3/4 flex flex-col justify-between bg-white p-3 rounded-lg ">
                             {/* Topo: imagem e nome */}
                             <div className="flex items-center gap-3">
-                                <img
-                                    src="https://i.pravatar.cc/80" // aumentei o tamanho da imagem
+                                <img 
+                                    src={item.foto_perfil_url?.trim()
+                                            ? `${import.meta.env.VITE_API_URL}${item.foto_perfil_url}?`
+                                            : "/avatar.png" 
+                                        }
                                     alt="Foto de perfil"
-                                    className="w-10 h-10 rounded-full object-cover"
+                                    className="w-16 h-16 rounded-full object-cover"
                                 />
                                 <div className="font-bold text-sm">{item.nome}</div>
                             </div>

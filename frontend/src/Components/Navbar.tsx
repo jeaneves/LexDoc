@@ -33,7 +33,7 @@ export default function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-0 bg-white shadow px-4 py-3 flex justify-end items-center">
       <div className="ml-auto relative" ref={menuRef}>
         <img
-          src="https://i.pravatar.cc/40"
+          src="http://192.168.1.42:3000/uploads/1753554422910-909730323.jpg?"
           alt="Foto de perfil"
           className="w-10 h-10 rounded-full cursor-pointer"
           onClick={toggleMenu}
@@ -44,7 +44,7 @@ export default function Nav() {
           >
             <button
               className="w-full flex  items-center gap-2 px-4 py-2 hover:bg-gray-100"
-              onClick={() => navigate("/perfil")}
+              onClick={() => navigate("/funcionarios/funcionariosed/6")}
             >      
             
               Perfil

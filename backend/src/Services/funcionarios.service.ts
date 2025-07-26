@@ -28,6 +28,7 @@ export async function CadastraFunc(data: Funcionario){
          ,observacao      
          ,datacadastro    
          ,dataalteracao   
+         ,uf
     }=data;
 
     //verifica se existe
@@ -58,7 +59,8 @@ export async function CadastraFunc(data: Funcionario){
                                              ,usuario_admin   
                                              ,observacao      
                                              ,datacadastro    
-                                             ,dataalteracao ]);
+                                             ,dataalteracao
+                                             ,uf ]);
     return result.rows[0];
 }
 //altera
@@ -86,6 +88,7 @@ export async function alteraFunc(id:number, data:Funcionario) {
          ,observacao      
          ,datacadastro    
          ,dataalteracao   
+         ,uf
     }=data;
 
     //verifica se exite o ID
@@ -94,30 +97,33 @@ export async function alteraFunc(id:number, data:Funcionario) {
         throw new Error("Código não encontrado")
     }
     //atualiza
-    const result = await db.query(updateFunc,[nome            
-                                             ,cpf             
-                                             ,rg              
-                                             ,oab             
-                                             ,tipo_funcionario
-                                             ,cargo           
-                                             ,salario         
-                                             ,data_admissao   
-                                             ,ativo           
-                                             ,rua             
-                                             ,numero          
-                                             ,bairro          
-                                             ,cep             
-                                             ,cidade          
-                                             ,celular1        
-                                             ,celular2        
-                                             ,email           
-                                             ,foto_perfil_url 
-                                             ,usuario_id      
-                                             ,usuario_admin   
-                                             ,observacao      
-                                             ,datacadastro    
-                                             ,dataalteracao 
-                                             ,id]);
+    const result = await db.query(updateFunc,[
+    nome,             
+    cpf,              
+    rg,               
+    oab,              
+    tipo_funcionario, 
+    cargo,            
+    salario,          
+    data_admissao,    
+    ativo,            
+    rua,              
+    numero,           
+    bairro,           
+    cep,              
+    cidade,           
+    celular1,         
+    celular2,         
+    email,            
+    foto_perfil_url,  
+    usuario_id,       
+    usuario_admin,    
+    observacao,       
+    datacadastro,     
+    dataalteracao,    
+    uf,               
+    id                
+]);
     return result.rows[0];                                             
 }
 //deleta

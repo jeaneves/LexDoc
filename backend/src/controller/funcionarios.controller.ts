@@ -4,7 +4,10 @@ import * as FuncionarioService from '../services/funcionarios.service';
 export default class Funcionarios{
     static async cadastraFunc(req:Request, res:Response){
         try {
-            const Funcionario = await FuncionarioService.CadastraFunc(req.body);
+            // Pega o caminho do arquivo enviado pelo multer
+            const foto_perfil_url = req.file ? `/uploads/${req.file.filename}` : null;
+
+            const Funcionario = await FuncionarioService.CadastraFunc({...req.body,foto_perfil_url});
             res.status(201).json({
                 message: "Cadastrado com sucesso",
                 funcionario: Funcionario
@@ -20,18 +23,29 @@ export default class Funcionarios{
 
     static async alteraFunc(req:Request,res:Response){
         try {
-            const id = parseInt(req.params.id);
-            const funcionario = await FuncionarioService.alteraFunc(id, req.body)
-            res.status(200).json({
-                message: "Atualizado com suscesso",
-                funcionario: funcionario
-            });
-        } catch (error: any) {
-            res.status(500).json({
-                message: "Erro ao atualizar",
-                data: error.message
-            });
-        }
+        const id = Number(req.params.id);
+
+        // Pega nova foto ou mantém a existente
+        const foto_perfil_url = req.file
+            ? `/uploads/${req.file.filename}`
+            : req.body.foto_perfil_url || null;
+
+        const funcionario = await FuncionarioService.alteraFunc(id, {
+            ...req.body,
+            foto_perfil_url
+        });
+
+        res.status(200).json({
+            message: "Alterado com sucesso",
+            funcionario
+        });
+
+    } catch (error: any) {
+        res.status(400).json({
+            message: "Erro ao alterar",
+            data: error.message
+        });
+    }
     }
 
     static async listaFuncID(req:Request,res:Response ){

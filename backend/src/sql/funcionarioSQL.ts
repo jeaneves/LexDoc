@@ -7,9 +7,9 @@ export const buscaFuncID = `select *
                            from funcionarios
                            where id = $1`;
 
-export const delfunc = `delete from codigos_penal where id = $1`;
+export const delfunc = `delete from funcionarios where id = $1`;
 
-export const updateFunc = `UPDATE nome_da_tabela
+export const updateFunc = `UPDATE funcionarios
 SET
     nome = $1,
     cpf = $2,
@@ -32,9 +32,11 @@ SET
     usuario_id = $19,
     usuario_admin = $20,
     observacao = $21,
-    dataalteracao = $22
-WHERE id = $23 
-returning *`;                           
+    datacadastro = $22,  
+    dataalteracao = $23,
+    uf = $24
+WHERE id = $25
+returning *`;                        
 
 export const insertFunc = `INSERT INTO funcionarios (nome, 
                                                         cpf, 

@@ -8,7 +8,6 @@ import PenitenciariaRoutes from './routes/penitenciaria.route';
 import FuncionariosRoutes from './routes/funcionarios.routes';
 import { testConnection } from './config/db';
 
-
  
 dotenv.config();
 
@@ -32,10 +31,33 @@ app.use(cors({
   },
   credentials: true // se estiver usando cookies/autenticação
 }));
+// Middleware para multipart/form-data (uploads)
+//const upload = multer(); 
 
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// Middleware condicional
+/*app.use((req, res, next) => {
+  if (req.headers['content-type']?.startsWith('multipart/form-data')) {
+    // Se for multipart, usa o multer
+    upload.none()(req, res, next); // 'none()' para texto puro, ou .any() para arquivos
+  } else {
+    // Se não for multipart, usa JSON ou urlencoded
+    express.json()(req, res, (err) => {
+      if (err) {
+        // Se JSON falhar, tenta urlencoded (para formulários HTML)
+        express.urlencoded({ extended: true })(req, res, next);
+      } else {
+        next();
+      }
+    });
+  }
+});*/
 
 app.use('/health', require('./routes/health.routes').default);
+// Configuração para servir arquivos estáticos da pasta 'uploads'
+app.use('/uploads', express.static('./src/uploads'));
 
 app.use('/usuarios',UserRoutes);
 app.use('/forum', ForumRoutes);
