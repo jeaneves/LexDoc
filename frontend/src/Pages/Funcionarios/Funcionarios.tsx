@@ -67,18 +67,7 @@ export default function Funcionarios(){
         }
     }
 
-    function getTipoFuncionario(tipo: string) {
-        switch (tipo) {
-            case 'A':
-                return 'Advogado';
-            case 'E':
-                return 'Estagiario';
-            case 'S':
-                return 'Secretário';
-            default:
-                return 'Não Informado';
-        }
-    }
+  
 
     return(
         <section>

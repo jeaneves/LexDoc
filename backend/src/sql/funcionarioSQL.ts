@@ -36,7 +36,12 @@ SET
     dataalteracao = $23,
     uf = $24
 WHERE id = $25
-returning *`;                        
+returning *`;  
+
+export const updateImageFunc = `UPDATE funcionarios
+SET foto_perfil_url = $1
+WHERE id = $2
+returning *`;
 
 export const insertFunc = `INSERT INTO funcionarios (nome, 
                                                         cpf, 
@@ -60,7 +65,8 @@ export const insertFunc = `INSERT INTO funcionarios (nome,
                                                         usuario_admin, 
                                                         observacao, 
                                                         datacadastro, 
-                                                        dataalteracao
+                                                        dataalteracao,
+                                                        uf
                                                     ) VALUES ($1, 
                                                             $2, 
                                                             $3, 
@@ -83,5 +89,6 @@ export const insertFunc = `INSERT INTO funcionarios (nome,
                                                             $20,
                                                             $21,
                                                             $22,
-                                                            $23 
+                                                            $23,
+                                                            $24
                                                     )returning *`;                           

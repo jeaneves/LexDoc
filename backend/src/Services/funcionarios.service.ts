@@ -1,11 +1,10 @@
 import { db } from "../config/db";
-import { buscaFunc, buscaFuncID, delfunc, insertFunc, updateFunc } from "../sql/funcionarioSQL";
+import { buscaFunc, buscaFuncID, delfunc, insertFunc, updateFunc, updateImageFunc } from "../sql/funcionarioSQL";
 import { FiltroFunc, Funcionario } from "../types/funcionario";
 
 //cadastra
 export async function CadastraFunc(data: Funcionario){
-    const{id              
-         ,nome            
+    const{nome            
          ,cpf             
          ,rg              
          ,oab             
@@ -61,10 +60,10 @@ export async function CadastraFunc(data: Funcionario){
                                              ,datacadastro    
                                              ,dataalteracao
                                              ,uf ]);
-    return result.rows[0];
+    return result.rows[0]; 
 }
 //altera
-export async function alteraFunc(id:number, data:Funcionario) {
+export async function alteraFunc(id:number, data: Partial<Funcionario>) {
     const{nome            
          ,cpf             
          ,rg              
@@ -96,36 +95,40 @@ export async function alteraFunc(id:number, data:Funcionario) {
     if(existefunc.rows.length===0){
         throw new Error("Código não encontrado")
     }
-    //atualiza
-    const result = await db.query(updateFunc,[
-    nome,             
-    cpf,              
-    rg,               
-    oab,              
-    tipo_funcionario, 
-    cargo,            
-    salario,          
-    data_admissao,    
-    ativo,            
-    rua,              
-    numero,           
-    bairro,           
-    cep,              
-    cidade,           
-    celular1,         
-    celular2,         
-    email,            
-    foto_perfil_url,  
-    usuario_id,       
-    usuario_admin,    
-    observacao,       
-    datacadastro,     
-    dataalteracao,    
-    uf,               
-    id                
-]);
+    //atualiza se existir
+    if (!nome){
+        const result = await db.query(updateImageFunc,[foto_perfil_url, id]);
+        return result.rows[0];
+    }
+    const result = await db.query(updateFunc,[nome,             
+                                             cpf,              
+                                             rg,               
+                                             oab,              
+                                             tipo_funcionario, 
+                                             cargo,            
+                                             salario,          
+                                             data_admissao,    
+                                             ativo,            
+                                             rua,              
+                                             numero,           
+                                             bairro,           
+                                             cep,              
+                                             cidade,           
+                                             celular1,         
+                                             celular2,         
+                                             email,            
+                                             foto_perfil_url,  
+                                             usuario_id,       
+                                             usuario_admin,    
+                                             observacao,       
+                                             datacadastro,     
+                                             dataalteracao,    
+                                             uf,               
+                                             id                
+                                            ]);
     return result.rows[0];                                             
 }
+
 //deleta
 export async function deletaFunc(id: number) {
     // Verifica se o fórum existe
@@ -142,7 +145,7 @@ export async function deletaFunc(id: number) {
 //busca
 export async function listaFuncid(id:number) {
     const result = await db.query(buscaFuncID,[id]); 
-    return result.rows;
+    return result.rows[0];
 }
 
 //lista

@@ -5,7 +5,7 @@ import { RadioBoolean } from "@/Components/Inputs/InputRadio";
 import { Input } from "@/Components/Inputs/Inputs";
 import InputTelefone from "@/Components/Inputs/InputTel";
 import type { Funcionario, FuncionarioEDProps } from "@/types/Funcionarios";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { FcBusinessman, FcKindle } from "react-icons/fc";
 import { TbArrowBack } from "react-icons/tb";
 import { useNavigate, useParams } from "react-router-dom";
@@ -16,6 +16,32 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
     const {id} = useParams<{id:string}>();
     const [tab, setTab] = useState("cadastro");
     const [fotoPerfil, setFotoPerfil] = useState<File | null>(null);
+    
+    const inputFileRef = useRef<HTMLInputElement>(null);
+    const [previewFoto, setPreviewFoto] = useState<string | null>(null);
+
+    // Atualiza preview quando fotoPerfil muda
+  useEffect(() => {
+    if (fotoPerfil) {
+      const objectUrl = URL.createObjectURL(fotoPerfil);
+      setPreviewFoto(objectUrl);
+
+      // Cleanup para liberar memória
+      return () => URL.revokeObjectURL(objectUrl);
+    } else {
+      setPreviewFoto(null);
+    }
+  }, [fotoPerfil]);
+
+  const handleClickImage = () => {
+    inputFileRef.current?.click();
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      setFotoPerfil(e.target.files[0]);
+    }
+  };
 
     const[formData,setFormData] = useState<Funcionario>({
         id                  :undefined,
@@ -104,7 +130,9 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
                     if (!response.ok) throw new Error("Erro ao buscar Funcionario");
                     
                     const json = await response.json();
-                    const data = json.funcionario?.[0];
+                    const data = json.funcionario as Funcionario;
+
+                    console.log("Dados recebidos:", json);
                     
                     if (!data) throw new Error("Funcionario não encontrado");
 
@@ -228,6 +256,7 @@ const handleSubmit = async (e: React.FormEvent) => {
   }
 };
 
+
     return(
         <section>
             <div className="flex justify-between items-center flex-wrap mb-4">
@@ -260,20 +289,26 @@ const handleSubmit = async (e: React.FormEvent) => {
                             <div >
                                 <div className="flex font-semibold items-center">
                                     <img
-                                        src={formData.foto_perfil_url?.trim()
-                                            ? `${import.meta.env.VITE_API_URL}${formData.foto_perfil_url}?`
-                                            : "/avatar.png" 
+                                        src={
+                                            previewFoto
+                                            ? previewFoto
+                                            : formData.foto_perfil_url?.trim()
+                                                ? `${import.meta.env.VITE_API_URL}${formData.foto_perfil_url}?`
+                                                : "/avatar.png"
                                         }
-                                        crossOrigin="anonymous"                                         
-                                        className="w-20 h-20 rounded-full"
-                                    /> 
-                                    <Input type="file" 
+                                        crossOrigin="anonymous"
+                                        alt="Foto de perfil"
+                                        className="w-20 h-20 rounded-full cursor-pointer hover:brightness-90 transition"
+                                        onClick={handleClickImage}
+                                        title="Clique para alterar a foto"
+                                    />
+                                    <input
+                                        ref={inputFileRef}
+                                        type="file"
                                         name="foto_perfil_url"
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files[0]) {
-                                                setFotoPerfil(e.target.files[0]);
-                                            }
-                                        }}
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={handleFileChange}
                                     />
                                 </div>                                  
                                 

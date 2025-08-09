@@ -37,43 +37,76 @@ export default function Login(){
   
 
   return (
-    <div className="h-screen flex justify-center items-center bg-gradient-to-br from-green-600 ... to-blue-200">
+    <div className="relative h-screen flex justify-center items-center">
+      {/* Imagem de fundo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center"
+        style={{ backgroundImage: "url('../public/Como-ser-advogado-de-um-clube-de-futebol-800x440.jpg')" }}
+      ></div>
 
-      <div className="w-full max-w-xs ">
-        <div>
-          
-        </div>
-        <form className='bg-white shadow-md rounded  px-4 pt-6 pb-8 mb-4' onSubmit={handleLogin}>
-          <div className='mb-10'>
-            {/* <label className='block text-gray-700 text-sm font-bold mb-2'>Usuário</label> */}
-            <div className="relative" >
-              <FaUser className="absolute right-3 top-3 text-gray-400" />
-              <Input className="uppercase" id="user" type="text" placeholder="Usuário" value={user} onChange={e => setUser(e.target.value.toUpperCase())}/>
-            </div>
-            
-          </div>
-          <div className='mb-5'>
-            {/* <label className='block text-gray-700 text-sm font-bold mb-2'>Senha</label> */}
+      {/* Camada verde transparente */}
+      <div className="absolute inset-0 bg-green-200 bg-opacity-60"></div>
+
+      {/* Conteúdo do login */}
+      <div className="relative w-full max-w-xs">
+        <form
+          className="bg-white shadow-md rounded px-4 pt-6 pb-8 mb-4"
+          onSubmit={handleLogin}
+        >
+          <div className="mb-10">
             <div className="relative">
-              {showPassword? <IoIosEye className="absolute right-3 top-3 text-gray-400" onClick={() => setShowPassword(prev => !prev)}/> : <IoIosEyeOff className="absolute right-3 top-3 text-gray-400" onClick={() => setShowPassword(prev => !prev)}/> }  
-              <Input id="pass" type={showPassword ? "text" : "password"} placeholder="Senha" value={pass} onChange={e => setPass(e.target.value)} />
-              {erro && <p className="text-red-700 text-xs mt-2">{erro}</p>}
-            </div>            
+              <FaUser className="absolute right-3 top-3 text-gray-400" />
+              <Input
+                className="uppercase"
+                id="user"
+                type="text"
+                placeholder="Usuário"
+                value={user}
+                onChange={(e) => setUser(e.target.value.toUpperCase())}
+              />
+            </div>
           </div>
+
+          <div className="mb-5">
+            <div className="relative">
+              {showPassword ? (
+                <IoIosEye
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                />
+              ) : (
+                <IoIosEyeOff
+                  className="absolute right-3 top-3 text-gray-400"
+                  onClick={() => setShowPassword((prev) => !prev)}
+                />
+              )}
+              <Input
+                id="pass"
+                type={showPassword ? "text" : "password"}
+                placeholder="Senha"
+                value={pass}
+                onChange={(e) => setPass(e.target.value)}
+              />
+              {erro && <p className="text-red-700 text-xs mt-2">{erro}</p>}
+            </div>
+          </div>
+
           <div className="flex items-center justify-between mt-4">
-            <Button type='submit' color="blue" disabled={loading}>
-               {loading ? "Entrando...": "Entrar"}
-            </Button>  
+            <Button type="submit" color="blue" disabled={loading}>
+              {loading ? "Entrando..." : "Entrar"}
+            </Button>
           </div>
         </form>
+
         <p className="text-center text-white text-xs">
-           &copy; {new Date().getFullYear()} Todos os direitos reservados.
-           <br />
-            Desenvolvido por <a href="#" className="text-white hover:text-blue-800">Nome emp</a>
-           <br />
-            
+          &copy; {new Date().getFullYear()} Todos os direitos reservados.
+          <br />
+          Desenvolvido por{" "}
+          <a href="#" className="text-white hover:text-blue-800">
+            Nome emp
+          </a>
         </p>
       </div>
-    </div>        
-    );
+    </div>
+  );
 }
