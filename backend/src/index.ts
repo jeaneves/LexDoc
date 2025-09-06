@@ -17,8 +17,8 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',   // Adicionado: Versão HTTP para localhost
   'https://localhost:5173',
-  'http://192.168.1.3:5173', // Adicionado: Versão HTTP para IP local
-  'https://192.168.1.3:5173'
+  'http://192.168.1.7:5173', // Adicionado: Versão HTTP para IP local
+  'https://192.168.1.7:5173'
 ];
 
 app.use(cors({
@@ -26,7 +26,7 @@ app.use(cors({
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
-      callback(new Error('Not allowed by CORS'));
+      callback(new Error('Endereço nao configurador no CORS'));
     }
   },
   credentials: true // se estiver usando cookies/autenticação

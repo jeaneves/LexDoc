@@ -33,9 +33,9 @@ export default function Nav() {
     <nav className="fixed top-0 left-0 right-0 z-0 bg-white shadow px-4 py-3 flex justify-end items-center">
       <div className="ml-auto relative" ref={menuRef}>
         <img
-          src="http://192.168.1.42:3000/uploads/1753554422910-909730323.jpg?"
+          src="http://localhost:3000/uploads/funcionarios/Bruce_neves/1000091479.jpg"
           alt="Foto de perfil"
-          className="w-10 h-10 rounded-full cursor-pointer"
+          className="w-12 h-12 rounded-full cursor-pointer"
           onClick={toggleMenu}
         />
         {isOpen && (

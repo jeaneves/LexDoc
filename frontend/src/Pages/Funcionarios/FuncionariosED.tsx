@@ -131,8 +131,6 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
                     
                     const json = await response.json();
                     const data = json.funcionario as Funcionario;
-
-                    console.log("Dados recebidos:", json);
                     
                     if (!data) throw new Error("Funcionario não encontrado");
 
@@ -179,14 +177,10 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
 
         setFormData((prev) => ({
             ...prev,
-            [name]:
-            name === "numero" || name === "salario"
-                ? Number(value)
-                : value === "true"
-                ? true
-                : value === "false"
-                ? false
-                : value,
+            [name]: name === "numero" || name === "salario"
+            ? Number(value): value === "true"
+            ? true: value === "false"
+            ? false: value,
         }));
     };
 
@@ -504,7 +498,39 @@ const handleSubmit = async (e: React.FormEvent) => {
                 }
                 {tab === "usuario" &&
                     <form className="bg-gray-50 shadow-md rounded px-4 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-                        
+                        <div className="flex w-full items-center my-2 space-x-2">
+                            <Input
+                                className="w-full md:w-2/12"
+                                name="usuario"
+                                placeholder="Usuario"
+                                type="text"
+                                value={formData.usuario_id ? String(formData.usuario_id) : ""}
+                                onChange={handleChange}
+                            />
+                            <div className="flex-col md:flex-row gap-4 py-2"> 
+                                <Input
+                                    className="w-full md:w-10/12"
+                                    name="senha"
+                                    placeholder="Senha"
+                                    type="password"
+                                    value={formData.usuario_id ? String(formData.usuario_id) : ""}
+                                    onChange={handleChange}
+                                />
+                            </div>
+                            
+                            <div className="ml-auto">
+                                <RadioBoolean
+                                    name="usuario_admin"
+                                    value={formData.usuario_admin}
+                                    onChange={handleChange}
+                                    trueLabel="Administrador"
+                                    falseLabel="Usuário Comum"
+                                />
+                            </div>
+                        </div>
+                        <div className="flex items-center justify-between mt-4 ">
+                            <Button  type='submit' color="green" >  {formData.id ? "Atualizar" : "Salvar"}</Button>  
+                        </div> 
                     </form>
                 }
             </div>
