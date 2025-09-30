@@ -15,6 +15,8 @@ import Clientes from './Pages/Clientes/Clientes';
 import ClientesED from './Pages/Clientes/ClientesED';
 import Funcionarios from './Pages/Funcionarios/Funcionarios';
 import FuncionariosED from './Pages/Funcionarios/FuncionariosED';
+import Usuarios from './Pages/Usuarios/Usuarios';
+import UsuariosED from './Pages/Usuarios/UsuariosED';
 
 export default function AppRoutes(){
     return ( 
@@ -43,6 +45,9 @@ export default function AppRoutes(){
                     <Route path='funcionarios' element={<Funcionarios/>}/> 
                     <Route path='funcionarios/funcionariosed' element={<FuncionariosED/>}/> 
                     <Route path='funcionarios/funcionariosed/:id' element={<FuncionariosED/>}/> 
+                    <Route path='usuarios' element={<Usuarios/>}/> 
+                    <Route path='usuarios/usuario' element={<UsuariosED/>}/> 
+                    <Route path='usuarios/usuario/:id' element={<UsuariosED/>}/> 
 
 
               </Route>

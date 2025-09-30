@@ -63,7 +63,7 @@ export const useForumStore = create<ForumState>((set,get)=>({
     });
 
     const result = await response.json();
-    console.log("📦 Resposta da API:", result);
+    console.log("Resposta da API:", result);
 
     const forumsData = result?.forums?.dados ?? [];
     const totalPaginas = result?.forums?.totalPaginas ?? 1;

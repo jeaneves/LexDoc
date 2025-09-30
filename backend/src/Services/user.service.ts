@@ -1,8 +1,8 @@
 import { db } from "../config/db"
 import { hashSenha, verificaSenha } from "../config/hash";
 import { geraTokenJWT } from "../config/jwt";
-import { buscaUser, buscaUsers, insertUser, updateUser } from "../sql/usuariosSQL";
-import { Usuario } from "../types/usuarios";
+import { buscaUser, buscaUserId, buscaUsers, insertUser, updateUser } from "../sql/usuariosSQL";
+import { FiltroUsuario, Usuario } from "../types/usuarios";
 
 //LOGIN
 export async function login(usuer: string, senha: string){
@@ -120,11 +120,46 @@ export async function atualizaUser(id:number, data: Usuario){
     return atualizaUser.rows[0];
 }
 
+export async function listaUserId(id:number) {
+
+    const result = await db.query(buscaUserId,[id]); 
+    return result.rows;
+}
+
 // lista todos os usuários
-export async function listaUsers() {
-    const users = await db.query(buscaUsers);
-    if(users.rows.length === 0) {
-        throw new Error("Nenhum usuário encontrado");
+export async function listaUsers({pagina,limite, usuario}: FiltroUsuario) {
+    const offset = (pagina - 1) * limite;
+    const filtros: string[] = [];
+    const valores: any[] = [];
+
+    if (usuario) {
+        valores.push(`%${usuario}%`);
+        filtros.push(`uper(usuario) LIKE upper($${valores.length})'); // valores.length = 1 => $1})`)
     }
-    return users.rows;
+
+    const whereClause = filtros.length > 0 ? `WHERE ${filtros.join(' AND ')}` : '';
+
+    const usuariosQuery = `SELECT * FROM usuarios
+        ${whereClause}
+        ORDER BY usuario
+        LIMIT $${valores.length + 1}
+        OFFSET $${valores.length + 2}
+    `;
+
+    valores.push(limite, offset);
+    
+    const result = await db.query(usuariosQuery, valores);
+
+    const totalQuery = `SELECT COUNT(*) FROM usuarios ${whereClause}`;
+    const totalResult = await db.query(totalQuery, valores.slice(0, -2));
+    const totalRegistros = parseInt(totalResult.rows[0].count, 10);
+    const totalPaginas = Math.ceil(totalRegistros / limite);
+
+    return {
+        dados: result.rows,
+        totalPaginas,
+        totalRegistros,
+    };
+
+
 }

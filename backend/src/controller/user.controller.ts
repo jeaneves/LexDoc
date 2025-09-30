@@ -51,7 +51,11 @@ export default class UserController {
 
     static async listaUsers(req: Request, res: Response) {
         try {
-            const usuarios = await UserService.listaUsers();
+            const pagina = parseInt(req.query.pagina as string) || 1;
+            const limite = parseInt(req.query.limite as string) || 10;
+            const usuario   = (req.query.nomeForum as string) || "";
+
+            const usuarios = await UserService.listaUsers({pagina,limite,usuario});
             res.status(200).json({
                 message: 'Lista de usuários',
                 usuarios: usuarios

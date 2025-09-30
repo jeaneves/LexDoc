@@ -25,6 +25,7 @@ export default function Login(){
 
       loginContext(data.token); //Armazena o token no contexto de autenticação
       localStorage.setItem('token', data.token); //Armazena o token no localStorage
+      localStorage.setItem('id_func', data.id_func); //Armazena o id_func no localStorage
       navigate('/'); //Redireciona para a página inicial
     } catch (error) {
       console.error('Erro ao fazer login:', error);

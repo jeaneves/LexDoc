@@ -1,5 +1,5 @@
 import { useSidebarStore } from "../Store/useSideBarStore";
-import { FaUserCog} from "react-icons/fa";
+import { FaUserAlt, FaUserCog} from "react-icons/fa";
 import { useState } from "react";
 import { FaGears, FaTreeCity, FaUsers } from "react-icons/fa6";
 import { LuBookX } from "react-icons/lu";
@@ -100,6 +100,10 @@ export default function Sidebar(){
                 <a onClick={() => handleNavigation('/funcionarios')} className="flex items-center gap-2  hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaUserCog size={13} />
                   {!collapsed && <span>Funcionarios</span>}
+                </a>
+                <a onClick={() => handleNavigation('/usuarios')} className="flex items-center gap-2  hover:text-blue-900" style={{ cursor: "pointer" }}>
+                  <FaUserAlt size={13} />
+                  {!collapsed && <span>Usuarios</span>}
                 </a>
                 <a onClick={() => handleNavigation('/parametros')} className="flex items-center gap-2 text-gray-400 hover:text-blue-900" style={{ cursor: "pointer" }}>
                   <FaGears size={13} />

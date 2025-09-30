@@ -37,23 +37,6 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Middleware condicional
-/*app.use((req, res, next) => {
-  if (req.headers['content-type']?.startsWith('multipart/form-data')) {
-    // Se for multipart, usa o multer
-    upload.none()(req, res, next); // 'none()' para texto puro, ou .any() para arquivos
-  } else {
-    // Se não for multipart, usa JSON ou urlencoded
-    express.json()(req, res, (err) => {
-      if (err) {
-        // Se JSON falhar, tenta urlencoded (para formulários HTML)
-        express.urlencoded({ extended: true })(req, res, next);
-      } else {
-        next();
-      }
-    });
-  }
-});*/
 
 app.use('/health', require('./routes/health.routes').default);
 // Configuração para servir arquivos estáticos da pasta 'uploads'

@@ -10,4 +10,8 @@ export interface Usuario {
 }
 
 
-    
+export interface FiltroUsuario{
+    pagina: number,
+    limite: number,
+    usuario?: string
+}    

@@ -1,10 +1,10 @@
-import { Button } from "@/Components/Button";
-import InputCEP from "@/Components/Inputs/InputCEP";
-import InputDocumento from "@/Components/Inputs/InputDocumento";
-import { RadioBoolean } from "@/Components/Inputs/InputRadio";
-import { Input } from "@/Components/Inputs/Inputs";
-import InputTelefone from "@/Components/Inputs/InputTel";
-import type { Funcionario, FuncionarioEDProps } from "@/types/Funcionarios";
+import { Button } from "../../Components/Button";
+import InputCEP from "../../Components/Inputs/InputCEP";
+import InputDocumento from "../../Components/Inputs/InputDocumento";
+import { RadioBoolean } from "../../Components/Inputs/InputRadio";
+import { Input } from "../../Components/Inputs/Inputs";
+import InputTelefone from "../../Components/Inputs/InputTel";
+import type { Funcionario, FuncionarioEDProps } from "../../types/Funcionarios";
 import { useEffect, useRef, useState } from "react";
 import { FcBusinessman, FcKindle } from "react-icons/fc";
 import { TbArrowBack } from "react-icons/tb";
@@ -267,12 +267,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                     >
                         <div className="gap-6 w-6"> <FcKindle size={20}/></div> <span className="hidden md:inline">Cadastro</span>
                     </button>
-                    <button
-                        className={` flex  px-4 py-2 border-b-2 ${tab === "usuario"? "border-yellow-500 text-yellow-600 font-semibold" : "border-transparent text-gray-500 hover:text-yellow-600"}`}
-                        onClick={() => setTab("usuario")}
-                    >
-                        <div className="gap-6 w-6"> <FcBusinessman  size={20}/></div> <span className="hidden md:inline">Usuário</span>
-                    </button>
+                    
                 </nav>
             </div>
             {/* Conteúdo de cada aba */}
@@ -496,43 +491,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                         </div>                          
                     </form>
                 }
-                {tab === "usuario" &&
-                    <form className="bg-gray-50 shadow-md rounded px-4 pt-6 pb-8 mb-4" onSubmit={handleSubmit}>
-                        <div className="flex w-full items-center my-2 space-x-2">
-                            <Input
-                                className="w-full md:w-2/12"
-                                name="usuario"
-                                placeholder="Usuario"
-                                type="text"
-                                value={formData.usuario_id ? String(formData.usuario_id) : ""}
-                                onChange={handleChange}
-                            />
-                            <div className="flex-col md:flex-row gap-4 py-2"> 
-                                <Input
-                                    className="w-full md:w-10/12"
-                                    name="senha"
-                                    placeholder="Senha"
-                                    type="password"
-                                    value={formData.usuario_id ? String(formData.usuario_id) : ""}
-                                    onChange={handleChange}
-                                />
-                            </div>
-                            
-                            <div className="ml-auto">
-                                <RadioBoolean
-                                    name="usuario_admin"
-                                    value={formData.usuario_admin}
-                                    onChange={handleChange}
-                                    trueLabel="Administrador"
-                                    falseLabel="Usuário Comum"
-                                />
-                            </div>
-                        </div>
-                        <div className="flex items-center justify-between mt-4 ">
-                            <Button  type='submit' color="green" >  {formData.id ? "Atualizar" : "Salvar"}</Button>  
-                        </div> 
-                    </form>
-                }
+               
             </div>
             
         </section>
