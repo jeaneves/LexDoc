@@ -24,4 +24,9 @@ export const updateUser = `UPDATE usuarios
                                id_funcionario = $6
                             WHERE id = $7 RETURNING *`;
 
+export const blockUserID = `UPDATE usuarios 
+                           SET ativo         = $1, 
+                               data_bloqueio = $2
+                           WHERE id = $3 RETURNING *`;                            
+
 export const delUser = `DELETE FROM usuarios WHERE id = $1`;

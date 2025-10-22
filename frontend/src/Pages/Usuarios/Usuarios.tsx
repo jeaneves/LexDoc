@@ -3,10 +3,10 @@ import { Button } from "../../Components/Button";
 import { Input } from "../../Components/Inputs/Inputs";
 import { useUsuarioStore } from "../../Store/useUsuarioStore";
 import {  useNavigate } from "react-router-dom";
-import { FiUserCheck } from "react-icons/fi";
+import { FiCheckSquare} from "react-icons/fi";
 import { GrUserAdmin } from "react-icons/gr";
-import { RiAdminLine } from "react-icons/ri";
-import { FaUserEdit } from "react-icons/fa";
+import { IoMdCloseCircle, IoMdCloseCircleOutline } from "react-icons/io";
+import { TbEdit, TbLockOpen, TbLockPassword } from "react-icons/tb";
 
 export default function Usuarios(){
 
@@ -24,10 +24,39 @@ export default function Usuarios(){
         buscarUsuario,
     } = useUsuarioStore();
 
-      useEffect(()=>{
+    const handleblock = async (id: number) =>{
+        console.log("Clicou para bloquear o usuário com ID:", id); // <- log de clique
+        const confirmBlock = window.confirm("Tem certeza que deseja bloquear/desbloquear este usuário?");
+        const token = localStorage.getItem("token");
+
+        if (!confirmBlock) return;
+
+        try {
+            const response = await fetch(`${import.meta.env.VITE_API_URL}/usuarios/blockuser/${id}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+            },);
+
+            if (!response.ok) {
+                throw new Error("Erro ao bloquear/desbloquear o usuário");
+            }
+             // ✅ Atualiza a lista sem recarregar a página
+            await buscarUsuario(); // <- sua função que atualiza a grid/listagem
+        }
+        catch (error: any) {
+            alert("Falha ao bloquear/desbloquear usuário: " + error.message);
+        }
+
+
+    }
+
+    useEffect(()=>{
         buscarUsuario();
         console.log("Filtro atual:", filter.nomeUsuario);
-      },[paginaAtual, filter.nomeUsuario]);
+    },[paginaAtual, filter.nomeUsuario]);
 
     const handleCadastrar = () => {
         navigate('/usuarios/usuario')
@@ -87,11 +116,11 @@ export default function Usuarios(){
                                         <td className="py-5">
                                             {item.ativo === 'S' ?(
                                                 <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg">
-                                                    <span><FiUserCheck /></span>
+                                                    <span><FiCheckSquare /></span>
                                                 </div>
                                             ):(
                                                 <div className="flex items-center gap-1 w-fit bg-red-200 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg">
-                                                    <span><FiUserCheck /></span>
+                                                    <span><IoMdCloseCircleOutline /></span>
                                                 </div>
                                             )}                                            
                                         </td>
@@ -102,7 +131,7 @@ export default function Usuarios(){
                                                 </div>
                                             ):(
                                                 <div className="flex items-center gap-1 w-fit bg-red-200 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg">
-                                                    <span><RiAdminLine  /></span>
+                                                    <span><IoMdCloseCircle /></span>
                                                 </div>
                                             )}                                            
                                         </td>
@@ -112,8 +141,24 @@ export default function Usuarios(){
                                                     onClick={() => navigate(`/usuarios/usuario/${item.id}`)} // Editar
                                                     style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
                                                 >
-                                                    <FaUserEdit  size={15}/> 
-                                                </div>                                         
+                                                    <TbEdit size={15}/> 
+                                                </div> 
+                                                {item.ativo === 'N'?(
+                                                    <div className="flex items-center gap-1 w-fit bg-green-100 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
+                                                    onClick={() => handleblock(item.id)}
+                                                    style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                                                    >
+                                                        <TbLockOpen size={15} data-tip="Clique aqui para bloquear o usuario"/>
+                                                    </div> ):(
+                                                        
+                                                    <div className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
+                                                    onClick={() => handleblock(item.id)}
+                                                    style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                                                >
+                                                    <TbLockPassword size={15} data-tip="Clique aqui para bloquear o usuario"/>
+                                                </div>
+                                                )} 
+                                                                                        
                                             </div>
                                         </td>
                                     </tr>

@@ -49,6 +49,23 @@ export default class UserController {
         }
     }
 
+    static async bloqueiaUser(req: Request, res: Response) {
+        try {
+            const id = parseInt(req.params.id);
+            const usuario = await UserService.blockUser(id);
+            res.status(200).json({
+                message: 'Usuário bloqueado/desbloqueado com sucesso',
+                usuario: usuario
+            });
+        }
+            catch (error: any) {
+            res.status(500).json({
+                message: 'Erro ao bloquear/desbloquear usuário',
+                data: error.message 
+            });
+        }
+    }
+
     static async listaUsers(req: Request, res: Response) {
         try {
             const pagina = parseInt(req.query.pagina as string) || 1;

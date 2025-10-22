@@ -1,11 +1,12 @@
 import { db } from "../config/db"
 import { hashSenha, verificaSenha } from "../config/hash";
 import { geraTokenJWT } from "../config/jwt";
-import { buscaUser, buscaUserId, buscaUsers, insertUser, updateUser } from "../sql/usuariosSQL";
+import { buscaUser, buscaUserId, blockUserID, insertUser, updateUser } from "../sql/usuariosSQL";
 import { FiltroUsuario, Usuario } from "../types/usuarios";
 
 //LOGIN
 export async function login(usuer: string, senha: string){
+    
     const user = await db.query(buscaUser,[usuer])
     if(user.rows.length === 0) {
         throw new Error("Usuário não encontrado");
@@ -124,6 +125,30 @@ export async function listaUserId(id:number) {
 
     const result = await db.query(buscaUserId,[id]); 
     return result.rows;
+}
+
+export async function blockUser(id:number){
+    const user = await db.query(buscaUserId,[id]);
+    
+    if(user.rows.length === 0) {
+        throw new Error("Usuário não encontrado");
+    }
+    let novoStatus = 'N';
+    //let dataBloqueio = new Date().toISOString().split('T')[0]; // Data atual formatada como YYYY-MM-DD
+    let dataBloqueio: string | null = new Date().toISOString().split('T')[0];
+    if(user.rows[0].ativo === 'N'){
+        novoStatus = 'S';
+        dataBloqueio = null; // Data padrão para desbloqueio
+    }
+
+    const bloqueiaUser = await db.query(blockUserID,[novoStatus,
+                                                   dataBloqueio,
+                                                   id]);
+
+    if(bloqueiaUser.rowCount === 0) {
+        throw new Error("Erro ao bloquear/desbloquear usuário");
+    }
+    return bloqueiaUser.rows[0];
 }
 
 // lista todos os usuários

@@ -27,9 +27,13 @@ export default function Login(){
       localStorage.setItem('token', data.token); //Armazena o token no localStorage
       localStorage.setItem('id_func', data.id_func); //Armazena o id_func no localStorage
       navigate('/'); //Redireciona para a página inicial
-    } catch (error) {
+    } catch (error : any) {
       console.error('Erro ao fazer login:', error);
-      setErro('Usuário ou senha inválidos');
+
+      if (error.mensagem === 'Usuário está bloqueado') {
+        setErro('Usuário bloqueado ou inativo. Contate o administrador.');
+      } else
+        setErro('Usuário ou senha inválidos');
     } finally {
     setLoading(false);
   }
