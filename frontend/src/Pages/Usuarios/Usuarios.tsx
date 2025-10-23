@@ -64,14 +64,15 @@ export default function Usuarios(){
 
     const handleFiltroChange = (e: React.ChangeEvent<HTMLInputElement>) =>{
     setFilter({...filter, [e.target.name]: e.target.value});
-  }
-  const paginar = (direcao: "anterior" | "proximo") => {
-    if (direcao === "anterior" && paginaAtual > 1) {
-      setPaginaAtual(paginaAtual - 1);
-    } else if (direcao === "proximo" && paginaAtual < totalPaginas) {
-      setPaginaAtual(paginaAtual + 1);
     }
-  };
+
+    const paginar = (direcao: "anterior" | "proximo") => {
+        if (direcao === "anterior" && paginaAtual > 1) {
+            setPaginaAtual(paginaAtual - 1);
+        } else if (direcao === "proximo" && paginaAtual < totalPaginas) {
+            setPaginaAtual(paginaAtual + 1);
+        }
+    };
 
     return(
        <section>
@@ -87,10 +88,10 @@ export default function Usuarios(){
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-4">
                 <Input
                     type="text"
-                    name="nome"
+                    name="nomeUsuario"
                     placeholder="Buscar por nome"
-                    //value={FiltroFunc.nome}
-                    //onChange={handleFiltroChange}
+                    value={filter.nomeUsuario}
+                    onChange={handleFiltroChange}
                     className="border px-3 py-2 rounded-lg"
                 />
             </div>
@@ -167,7 +168,86 @@ export default function Usuarios(){
                     </table>
                 )}
             </div>
-            
+            {/*Grid menor*/}
+            <div className="h-3/4 grid lg:hidden grid-cols-1 md:grid-cols-2 p-5 gap-2 overflow-y-scroll text-xs lg:text-base">
+                {(usuarios ??[]).map((item) =>(
+                    <div key={item.id} className="border rounded-lg flex items-center p-2 gap-2">
+                        <div className="w-3/4">
+                            <div className="font-semibold">{item.usuario} </div>
+                            <div className="flex items-center gap-2 mt-2">
+                                <div>Ativo:</div>
+                                {item.ativo === 'S' ?(
+                                    <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg">
+                                        <span><FiCheckSquare /></span>
+                                    </div>
+                                ):(
+                                    <div className="flex items-center gap-1 w-fit bg-red-200 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg">
+                                        <span><IoMdCloseCircleOutline /></span>
+                                    </div>
+                                )}
+                            
+                                <div>Admin:</div>
+                                {item.administrador === 'S' ?(
+                                    <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg">
+                                        <span><GrUserAdmin  /></span>
+                                    </div>
+                                ):(
+                                    <div className="flex items-center gap-1 w-fit bg-red-200 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg">
+                                        <span><IoMdCloseCircle /></span>
+                                    </div>
+                                )}
+                            
+                            <span>Ação:</span>
+                            
+                                <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
+                                    onClick={() => navigate(`/usuarios/usuario/${item.id}`)} // Editar
+                                    style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                                >
+                                    <TbEdit size={15}/>
+                                </div>
+                                {item.ativo === 'N'?(
+                                    <div className="flex items-center gap-1 w-fit bg-green-100 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg"
+                                        onClick={() => handleblock(item.id)}
+                                        style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                                    >
+                                        <TbLockOpen size={15} data-tip="Clique aqui para bloquear o usuario"/>
+                                    </div> ):(
+                                    <div className="flex items-center gap-1 w-fit bg-red-100 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg"
+                                        onClick={() => handleblock(item.id)}
+                                        style={{ cursor: "pointer" }} // Adiciona cursor pointer para indicar que é clicável
+                                    >
+                                        <TbLockPassword size={15} data-tip="Clique aqui para bloquear o usuario"/>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                ))}
+            </div>
+                
+                    
+
+
+            {/* Paginação */}
+            <div className="flex justify-center mt-6 gap-4">
+                <Button
+                    onClick={() => paginar("anterior")}
+                    disabled={paginaAtual === 1}
+                    color="gray"
+                >
+                    Anterior
+                </Button>
+                <span className="self-center">
+                    Página {paginaAtual} de {totalPaginas}
+                </span>
+                <Button
+                    onClick={() => paginar("proximo")}
+                    disabled={paginaAtual === totalPaginas}
+                    color="gray"
+                >
+                    Próxima
+                </Button>
+            </div>
        </section>
     )
 }

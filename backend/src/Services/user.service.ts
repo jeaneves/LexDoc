@@ -159,7 +159,7 @@ export async function listaUsers({pagina,limite, usuario}: FiltroUsuario) {
 
     if (usuario) {
         valores.push(`%${usuario}%`);
-        filtros.push(`uper(usuario) LIKE upper($${valores.length})'); // valores.length = 1 => $1})`)
+        filtros.push(`upper(usuario) LIKE upper($${valores.length})`); // valores.length = 1 => $1})`)
     }
 
     const whereClause = filtros.length > 0 ? `WHERE ${filtros.join(' AND ')}` : '';

@@ -49,7 +49,7 @@ export const useUsuarioStore = create<UsuarioState>((set,get)=>({
             }
 
             const url = `${apiUrl}/usuarios/listausers?${queryParams.toString()}`;
-            console.log("🔗 URL chamada:", apiUrl);
+            console.log("🔗 URL chamada:", url);
 
             const response = await fetch(url,{
                 headers:{
