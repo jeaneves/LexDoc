@@ -13,7 +13,7 @@ export default function Usuarios(){
     const { isLoading } = useUsuarioStore();
     const navigate = useNavigate();
     //const [usuarioAtivo, setusuarioAtivo ]= useState<string | null>(null);
-
+//consts
     const {
         usuarios,
         paginaAtual,
@@ -107,6 +107,7 @@ export default function Usuarios(){
                                     <th className="text-left py-2 pr-2 w-1/12">Usuario</th>
                                     <th className="text-left py-2 pr-2 w-1/12">Ativo</th>
                                     <th className="text-left py-2 pr-2 w-1/12">Admin</th>
+                                    <th className="text-left py-2 pr-2 w-1/12">Data blo/cad</th>
                                     <th className="text-left py-2 pr-2 w-1/12">Ação</th>        
                                 </tr>
                             </thead>
@@ -135,6 +136,17 @@ export default function Usuarios(){
                                                     <span><IoMdCloseCircle /></span>
                                                 </div>
                                             )}                                            
+                                        </td>
+                                        <td className="py-5">
+                                            {item.ativo === 'S' ?(
+                                                <div className="flex items-center gap-1 w-fit bg-green-200 px-2 py-1 text-green-600 text-xs font-semibold border border-green-600 rounded-lg">
+                                                    <span>{new Date(item.data_criacao).toLocaleDateString()}</span>
+                                                </div>
+                                            ):(
+                                                <div className="flex items-center gap-1 w-fit bg-red-200 px-2 py-1 text-red-600 text-xs font-semibold border border-red-600 rounded-lg">
+                                                    <span>{new Date(item.data_bloqueio).toLocaleDateString()}</span>
+                                                </div>
+                                            )}
                                         </td>
                                         <td>
                                             <div className="flex items-center gap-2"> {/* Adicionei flex e gap aqui */}

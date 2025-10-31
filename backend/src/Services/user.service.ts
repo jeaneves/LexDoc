@@ -64,8 +64,9 @@ export async function criaUser(data: Usuario){
     const senhaHash = await hashSenha(senha);
     const hoje = new Date(); // Data atual
     const dataFormatada = hoje.toISOString().split('T')[0]; // Formata a data para YYYY-MM-DD
+    const usuarioUpper = usuario.toUpperCase(); 
 
-    const inseretUser = await db.query(insertUser,[usuario,
+    const inseretUser = await db.query(insertUser,[usuarioUpper,
                                                    senhaHash,
                                                    ativo,
                                                    administrador,
@@ -104,8 +105,9 @@ export async function atualizaUser(id:number, data: Usuario){
     const senhaHash = await hashSenha(senha);
     const hoje = new Date(); // Data atual
     const dataFormatada = hoje.toISOString().split('T')[0]; // Formata a data para YYYY-MM-DD
+    const usuarioUpper = usuario.toUpperCase(); 
 
-    const atualizaUser = await db.query(updateUser,[usuario
+    const atualizaUser = await db.query(updateUser,[usuarioUpper
                                                 , senhaHash
                                                 , ativo
                                                 , administrador
@@ -150,6 +152,7 @@ export async function blockUser(id:number){
     }
     return bloqueiaUser.rows[0];
 }
+
 
 // lista todos os usuários
 export async function listaUsers({pagina,limite, usuario}: FiltroUsuario) {

@@ -1,5 +1,5 @@
 import {Request, Response} from 'express';
-import * as UserService from '../services/user.service';
+import * as UserService from '../Services/user.service'
 
 export default class UserController {
     static async login(req: Request, res: Response){
@@ -80,6 +80,19 @@ export default class UserController {
         } catch (error: any) {
             res.status(500).json({
                 message: 'Erro ao listar usuários',
+                data: error.message
+            });
+        }
+    }
+
+    static async listaUsersID(req: Request, res: Response) {
+        try{
+            const id = parseInt(req.params.id);
+            const result = await UserService.listaUserId(id);
+            res.status(200).json({result});
+        } catch (error: any) {
+            res.status(500).json({
+                message: 'Erro ao bucar por ID',
                 data: error.message
             });
         }

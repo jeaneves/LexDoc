@@ -1,5 +1,5 @@
 import { db } from "../config/db";
-import { buscaFunc, buscaFuncID, delfunc, insertFunc, updateFunc, updateImageFunc } from "../sql/funcionarioSQL";
+import { buscaFunc, buscaFuncID, buscaFuncSemUser, delfunc, insertFunc, updateFunc, updateImageFunc } from "../sql/funcionarioSQL";
 import { FiltroFunc, Funcionario } from "../types/funcionario";
 
 //cadastra
@@ -146,6 +146,11 @@ export async function deletaFunc(id: number) {
 export async function listaFuncid(id:number) {
     const result = await db.query(buscaFuncID,[id]); 
     return result.rows[0];
+}
+
+export async function listaFuncSemUser(id_user:number) {
+    const result = await db.query(buscaFuncSemUser,[id_user]); 
+    return result.rows;
 }
 
 //lista

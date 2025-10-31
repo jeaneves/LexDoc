@@ -3,6 +3,16 @@ export const buscaFunc = `select *
                            where LOWER(nome) = LOWER($1)
                            order by nome`;
 
+export const buscaFuncSemUser = `select id id_func, nome 
+                                 from funcionarios
+                                 where NOT EXISTS(SELECT 1
+                                                   FROM usuarios
+                                                   WHERE usuarios.id_funcionario = funcionarios.id
+                                                   and usuarios.id = $1)
+                                 order by nome
+                                 `;
+
+
 export const buscaFuncID = `select * 
                            from funcionarios
                            where id = $1`;

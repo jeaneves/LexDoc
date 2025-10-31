@@ -17,8 +17,8 @@ const app = express();
 const allowedOrigins = [
   'http://localhost:5173',   // Adicionado: Versão HTTP para localhost
   'https://localhost:5173',
-  'http://192.168.1.7:5173', // Adicionado: Versão HTTP para IP local
-  'https://192.168.1.7:5173'
+  'http://192.168.1.52:5173', // Adicionado: Versão HTTP para IP local
+  'https://192.168.1.52:5173'
 ];
 
 app.use(cors({
