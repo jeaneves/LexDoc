@@ -11,6 +11,7 @@ router.post('/cadastrafuncionario', autenticarUser, upload.single("foto_perfil_u
 router.put('/alterafuncionario/:id', autenticarUser, upload.single("foto_perfil_url"), FuncionariosController.alteraFunc);
 router.get('/listafuncionarios', autenticarUser, FuncionariosController.listaFuncionarios);
 router.get('/listafuncionario/:id', autenticarUser, FuncionariosController.listaFuncID);
+router.get('/listafuncionariouser/:id_user', autenticarUser, FuncionariosController.listaFuncSemUser);
 router.delete('/deletafuncionario/:id', autenticarUser, FuncionariosController.deletaFunc);
 
 export default router;

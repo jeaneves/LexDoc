@@ -11,7 +11,7 @@ interface Usuario{
     senha          :string;
     administrador  :string;
     ativo          :string;
-    id_funcionario : number;
+    id_funcionario :number;
 }
 
 interface UsuarioEDProps{
@@ -88,9 +88,9 @@ export default function UsuariosED( {usuarioData}:UsuarioEDProps){
                     const json = await response.json();
                     console.log(json);
                     // Assumindo que sua API retorna a lista em 'result' com campos 'id' e 'nome'
-                    const data: Funcionario[] = json.funcionario.map((f: any) => ({
+                    const data: Funcionario[] = json.funcionario.map((f: any,) => ({
                         id_func: Number(f.id),
-                        nome: f.nome,
+                        nome: f.nome ?? "Funcionario Sem Nome",
                     })); 
                     setFuncionarios(data);
                 } catch (error) {
@@ -214,15 +214,16 @@ export default function UsuariosED( {usuarioData}:UsuarioEDProps){
                         <select
                             id="id_funcionario"
                             name="id_funcionario"
-                            value={formData.id_funcionario} // O valor deve ser string para o <select>
+                            value={formData.id_funcionario}
                             onChange={handleChange}
                             className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm rounded-md shadow-sm"
-                        >                                
-                        {funcionarios.map((funcionario) => (
-                            <option key={String(funcionario.id_func.toString())} value={funcionario.id_func}>
+                        >
+                            
+                            {funcionarios.map((funcionario) => (
+                            <option key={Number(funcionario.id_func)} value={funcionario.id_func}>
                                 {funcionario.nome}
                             </option>
-                        ))}
+                            ))}
                         </select>
                     </div>
                     

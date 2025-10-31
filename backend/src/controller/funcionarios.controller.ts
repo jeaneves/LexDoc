@@ -1,5 +1,5 @@
 import { Request,Response } from "express";
-import * as FuncionarioService from '../services/funcionarios.service';
+import * as FuncionarioService from '../Services/funcionarios.service';
 import path from "path";
 import fs from "fs";
 
@@ -91,7 +91,7 @@ export default class Funcionarios{
         const funcionario = await FuncionarioService.listaFuncid(id)
 
         if (!funcionario) {
-          return res.status(404).json({ message: "Funcionário não encontrado" });
+           res.status(404).json({ message: "Funcionário não encontrado" });
         }
 
         res.status(200).json({
@@ -104,9 +104,30 @@ export default class Funcionarios{
             data: error.message
         });
     }
-}
+  }
 
-    static async deletaFunc(req:Request,res:Response){
+  static async listaFuncSemUser(req:Request,res:Response ){
+    try {
+        const id_user = parseInt(req.params.id_user);
+        const funcionario = await FuncionarioService.listaFuncSemUser(id_user)
+
+        if (!funcionario) {
+           res.status(404).json({ message: "Funcionário não encontrado" });
+        }
+
+        res.status(200).json({
+            message: "Funcionario encontrado",
+            funcionario
+        });
+    } catch (error: any) {
+        res.status(500).json({
+            message: "Erro ao buscar funcionário",
+            data: error.message
+        });
+    }
+  }
+
+  static async deletaFunc(req:Request,res:Response){
         try {
             const id = parseInt(req.params.id);
             const funcionario = await FuncionarioService.deletaFunc(id)

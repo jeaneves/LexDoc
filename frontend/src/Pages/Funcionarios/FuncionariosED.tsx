@@ -53,7 +53,7 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
         cargo               :"",
         salario             :0,
         data_admissao       :"",
-        ativo               :true,
+        ativo               :"S",
         rua                 :"",
         numero              :"",
         bairro              :"",
@@ -64,7 +64,7 @@ export default function FuncionariosED({FuncionarioData}:FuncionarioEDProps){
         email               :"",
         foto_perfil_url     :"",
         usuario_id          :0,
-        usuario_admin       :false,
+        usuario_admin       :"N",
         observacao          :"",
         datacadastro        :"",
         dataalteracao       :"",
@@ -303,7 +303,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                                 
                                 
                             </div>
-                            <div className="ml-auto">
+                            {/* <div className="ml-auto">
                                 <RadioBoolean
                                     name="ativo" 
                                     value={formData.ativo} 
@@ -311,7 +311,7 @@ const handleSubmit = async (e: React.FormEvent) => {
                                     trueLabel="Ativo" 
                                     falseLabel="Inativo" 
                                 />
-                            </div>
+                            </div> */}
                         </div>
                         
                         

@@ -1,43 +1,40 @@
 interface RadioBooleanProps {
-  value: boolean;
+  name: string;
+  value: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   trueLabel?: string;
   falseLabel?: string;
-  name: string;
 }
 
-export const RadioBoolean: React.FC<RadioBooleanProps> = ({
+export function RadioBoolean({
+  name,
   value,
   onChange,
   trueLabel = "Sim",
   falseLabel = "Não",
-  name,
-}) => {
+}: RadioBooleanProps) {
   return (
     <div className="flex gap-4">
-      <label className="flex items-center gap-2 cursor-pointer">
+      <label>
         <input
           type="radio"
           name={name}
-          value="true"
-          checked={value === true}
+          value="S"
+          checked={value === "S"}
           onChange={onChange}
-          className="accent-blue-600"
         />
         {trueLabel}
       </label>
-
-      <label className="flex items-center gap-2 cursor-pointer">
+      <label>
         <input
           type="radio"
           name={name}
-          value="false"
-          checked={value === false}
+          value="N"
+          checked={value === "N"}
           onChange={onChange}
-          className="accent-blue-600"
         />
         {falseLabel}
       </label>
     </div>
   );
-};
+}
